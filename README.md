@@ -7,5 +7,13 @@ This is my first Git repository!
 - How to stage and commit changes
 - How to track file history
 
+## What's Next?
+- Learn about branches
+- Practice committing changes
+- Explore Git commands
+
 ## Author
 Lior Stern
+
+## Date
+February 10, 2026
