@@ -5,6 +5,7 @@
     <title>P1P Carousel — Semana 1 BI</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -498,7 +499,7 @@
 ">
     <div style="flex:1;">
         <div style="color:#fff;font-size:12px;font-weight:700;margin-bottom:2px;">Exportar slides para Instagram</div>
-        <div style="color:rgba(255,255,255,0.35);font-size:11px;">Baixa cada slide como PNG 1080×1080px</div>
+        <div id="export-status" style="color:rgba(255,255,255,0.35);font-size:11px;">Baixa todos os slides como ZIP com PNGs 1080×1080px</div>
     </div>
     <button onclick="downloadAll()" style="
         background:linear-gradient(135deg,#2A5AD4,#3D6FE8);
@@ -511,30 +512,49 @@
 </div>
 
 <script>
-async function downloadSlide(slide, index) {
+async function captureSlide(slide) {
+    // hide logos temporarily to avoid CORS, redraw as text
+    const imgs = slide.querySelectorAll('img');
+    imgs.forEach(img => img.style.visibility = 'hidden');
+
     const canvas = await html2canvas(slide, {
         scale: 1080 / slide.offsetWidth,
-        useCORS: true,
-        backgroundColor: null,
-        logging: false
+        allowTaint: true,
+        useCORS: false,
+        backgroundColor: '#0D1929',
+        logging: false,
+        imageTimeout: 0
     });
-    const link = document.createElement('a');
-    link.download = `p1p-bi-semana1-slide${String(index).padStart(2,'0')}.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+
+    imgs.forEach(img => img.style.visibility = '');
+    return canvas;
 }
 
 async function downloadAll() {
     const btn = document.querySelector('#toolbar button');
-    btn.textContent = 'Exportando...';
+    const status = document.querySelector('#export-status');
     btn.disabled = true;
+
     const slides = document.querySelectorAll('.slide');
+    const zip = new JSZip();
+
     for (let i = 0; i < slides.length; i++) {
-        await downloadSlide(slides[i], i + 1);
-        await new Promise(r => setTimeout(r, 400));
+        status.textContent = `Exportando slide ${i + 1} de ${slides.length}...`;
+        const canvas = await captureSlide(slides[i]);
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        zip.file(`p1p-bi-semana1-slide${String(i+1).padStart(2,'0')}.png`, blob);
     }
-    btn.textContent = '✓ Concluído';
-    setTimeout(() => { btn.textContent = '⬇ Baixar todos'; btn.disabled = false; }, 2000);
+
+    status.textContent = 'Gerando ZIP...';
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    const link = document.createElement('a');
+    link.download = 'p1p-carrossel-semana1-bi.zip';
+    link.href = URL.createObjectURL(zipBlob);
+    link.click();
+
+    status.textContent = '✓ ZIP baixado — extraia e use os PNGs';
+    btn.disabled = false;
+    btn.textContent = '⬇ Baixar todos';
 }
 </script>
 
