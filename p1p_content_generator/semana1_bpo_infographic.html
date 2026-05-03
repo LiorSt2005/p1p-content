@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>P1P Infográfico — Semana 1 BPO Financeiro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #07101C;
+            font-family: 'Inter', sans-serif;
+            display: flex; flex-direction: column;
+            align-items: center; padding: 40px; gap: 20px;
+        }
+        #toolbar {
+            display: flex; align-items: center; gap: 16px;
+            background: #0D1929; border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px; padding: 14px 20px; width: 1200px;
+        }
+        #toolbar > div { flex: 1; }
+        #toolbar .title { color: #fff; font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+        #toolbar .sub { color: rgba(255,255,255,0.35); font-size: 11px; }
+        #dl-btn {
+            background: linear-gradient(135deg, #1E4DA1, #2A6DD9);
+            color: #fff; border: none; border-radius: 5px;
+            padding: 10px 22px; font-size: 11px; font-weight: 700;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            cursor: pointer; white-space: nowrap;
+            box-shadow: 0 4px 14px rgba(42,109,217,0.35);
+        }
+
+        /* CARD */
+        #card {
+            width: 1200px; height: 627px;
+            background: #0D1929;
+            position: relative; overflow: hidden;
+            display: grid;
+            grid-template-columns: 320px 1fr 1fr;
+        }
+
+        /* decorations */
+        .bg-grid {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(42,109,217,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(42,109,217,0.04) 1px, transparent 1px);
+            background-size: 50px 50px; pointer-events: none;
+        }
+        .bg-glow {
+            position: absolute; top: -120px; right: -80px;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(42,109,217,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .bg-glow2 {
+            position: absolute; bottom: -80px; left: 280px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(42,109,217,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* LEFT PANEL */
+        .left {
+            background: linear-gradient(160deg, #0F2240 0%, #0A1628 100%);
+            padding: 40px 32px;
+            display: flex; flex-direction: column;
+            justify-content: space-between;
+            position: relative; z-index: 1;
+            border-right: 1px solid rgba(42,109,217,0.15);
+        }
+        .accent { width: 30px; height: 3px; background: #2A6DD9; border-radius: 2px; margin-bottom: 18px; }
+        .tag { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #5B8DEF; margin-bottom: 12px; }
+        .headline { font-size: 24px; font-weight: 900; color: #fff; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 14px; }
+        .headline em { color: #5B8DEF; font-style: normal; }
+        .sub { font-size: 11px; color: rgba(255,255,255,0.4); line-height: 1.65; margin-bottom: 20px; }
+
+        /* Nibo badge */
+        .nibo-badge {
+            display: flex; align-items: center; gap: 10px;
+            background: rgba(42,109,217,0.12); border: 1px solid rgba(42,109,217,0.25);
+            border-radius: 6px; padding: 10px 14px; margin-bottom: 18px;
+        }
+        .nibo-text { font-size: 16px; font-weight: 900; color: #fff; letter-spacing: -0.5px; }
+        .nibo-sub { font-size: 9px; color: rgba(255,255,255,0.4); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-top: 1px; }
+        .plus { font-size: 14px; color: rgba(255,255,255,0.2); }
+
+        .logo-wrap img { height: 18px; opacity: 0.5; }
+
+        /* MIDDLE PANEL */
+        .middle {
+            padding: 36px 28px;
+            display: flex; flex-direction: column; gap: 14px;
+            position: relative; z-index: 1;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        .panel-title {
+            font-size: 9px; font-weight: 700; letter-spacing: 3px;
+            text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 2px;
+        }
+
+        /* problem cards */
+        .prob-list { display: flex; flex-direction: column; gap: 8px; }
+        .prob-item {
+            display: flex; gap: 10px; align-items: flex-start;
+            background: rgba(232,73,73,0.07); border: 1px solid rgba(232,73,73,0.15);
+            border-radius: 6px; padding: 10px 12px;
+        }
+        .prob-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+        .prob-title { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .prob-desc { font-size: 10px; color: rgba(255,255,255,0.4); line-height: 1.4; }
+
+        /* impact cards */
+        .impact-list { display: flex; flex-direction: column; gap: 8px; }
+        .impact-item {
+            display: flex; gap: 10px; align-items: center;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+            border-left: 3px solid #E84949;
+            border-radius: 0 6px 6px 0; padding: 10px 12px;
+        }
+        .impact-icon { font-size: 16px; flex-shrink: 0; }
+        .impact-label { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 1px; }
+        .impact-desc { font-size: 10px; color: rgba(255,255,255,0.38); line-height: 1.3; }
+
+        /* divider */
+        .divider { height: 1px; background: rgba(255,255,255,0.05); }
+
+        /* RIGHT PANEL */
+        .right {
+            padding: 36px 32px;
+            display: flex; flex-direction: column; gap: 14px;
+            position: relative; z-index: 1;
+        }
+
+        /* methodology steps */
+        .method { display: flex; flex-direction: column; gap: 0; }
+        .ms { display: flex; gap: 12px; align-items: flex-start; }
+        .ms-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+        .ms-num {
+            width: 30px; height: 30px; border-radius: 6px;
+            background: linear-gradient(135deg, #1E4DA1, #2A6DD9);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 800; color: #fff;
+        }
+        .ms-line { width: 1px; height: 14px; background: rgba(42,109,217,0.3); margin: 2px 0; }
+        .ms-body { padding-top: 4px; padding-bottom: 12px; }
+        .ms-title { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .ms-desc { font-size: 10px; color: rgba(255,255,255,0.38); line-height: 1.4; }
+
+        /* results */
+        .results { display: flex; flex-direction: column; gap: 7px; }
+        .result-item {
+            display: flex; gap: 10px; align-items: center;
+            background: rgba(42,109,217,0.08); border: 1px solid rgba(42,109,217,0.18);
+            border-radius: 6px; padding: 9px 12px;
+        }
+        .result-icon { font-size: 18px; flex-shrink: 0; }
+        .result-label { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 1px; }
+        .result-desc { font-size: 10px; color: rgba(255,255,255,0.38); line-height: 1.3; }
+
+        /* CTA strip */
+        .cta-strip {
+            background: linear-gradient(135deg, rgba(30,77,161,0.3), rgba(42,109,217,0.2));
+            border: 1px solid rgba(42,109,217,0.25);
+            border-radius: 8px; padding: 12px 16px;
+            display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        }
+        .cta-text { font-size: 11px; font-weight: 700; color: #fff; line-height: 1.4; }
+        .cta-text span { color: rgba(255,255,255,0.45); font-weight: 400; font-size: 10px; display: block; margin-top: 2px; }
+        .cta-tag {
+            background: #2A6DD9; color: #fff;
+            font-size: 9px; font-weight: 800; letter-spacing: 2px;
+            text-transform: uppercase; padding: 7px 14px;
+            border-radius: 4px; white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+<div id="toolbar">
+    <div>
+        <div class="title">Infográfico LinkedIn — Semana 1 BPO Financeiro</div>
+        <div class="sub" id="dl-status">Exporta como PNG 1200×627px — ideal para post LinkedIn</div>
+    </div>
+    <button id="dl-btn" onclick="downloadInfographic()">⬇ Baixar PNG</button>
+</div>
+
+<div id="card">
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow2"></div>
+
+    <!-- LEFT -->
+    <div class="left">
+        <div>
+            <div class="tag">BPO Financeiro</div>
+            <div class="accent"></div>
+            <div class="headline">Decisão<br>financeira não<br>pode depender<br><em>do operacional.</em></div>
+            <div class="sub">Enquanto seu financeiro roda em planilhas manuais, suas decisões chegam tarde — e o risco cresce invisível.</div>
+        </div>
+
+        <div>
+            <div class="nibo-badge">
+                <div>
+                    <div class="nibo-text">P1P + nibo</div>
+                    <div class="nibo-sub">Parceiros oficiais Nibo BPO</div>
+                </div>
+            </div>
+            <div class="logo-wrap">
+                <img src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+            </div>
+        </div>
+    </div>
+
+    <!-- MIDDLE -->
+    <div class="middle">
+
+        <div class="panel-title">O Problema</div>
+        <div class="prob-list">
+            <div class="prob-item">
+                <div class="prob-icon">⏱️</div>
+                <div>
+                    <div class="prob-title">Tempo Consumido</div>
+                    <div class="prob-desc">Gestores em tarefas manuais sem valor decisório</div>
+                </div>
+            </div>
+            <div class="prob-item">
+                <div class="prob-icon">📋</div>
+                <div>
+                    <div class="prob-title">Processos Manuais</div>
+                    <div class="prob-desc">Planilhas, conciliações atrasadas, dependência de pessoas</div>
+                </div>
+            </div>
+            <div class="prob-item">
+                <div class="prob-icon">📉</div>
+                <div>
+                    <div class="prob-title">Dados Atrasados</div>
+                    <div class="prob-desc">Informação de semanas atrás usada para decidir hoje</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="panel-title">O Impacto</div>
+        <div class="impact-list">
+            <div class="impact-item">
+                <div class="impact-icon">🔄</div>
+                <div>
+                    <div class="impact-label">Decisões Reativas</div>
+                    <div class="impact-desc">Você reage à crise, não antecipa a estratégia</div>
+                </div>
+            </div>
+            <div class="impact-item">
+                <div class="impact-icon">🌫️</div>
+                <div>
+                    <div class="impact-label">Falta de Previsibilidade</div>
+                    <div class="impact-desc">Fluxo de caixa impreciso, surpresas frequentes</div>
+                </div>
+            </div>
+            <div class="impact-item">
+                <div class="impact-icon">⚠️</div>
+                <div>
+                    <div class="impact-label">Risco Invisível</div>
+                    <div class="impact-desc">Problemas que aparecem quando já é tarde</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+
+        <div class="panel-title">Como Atuamos — P1P + Nibo BPO</div>
+        <div class="method">
+            <div class="ms">
+                <div class="ms-left"><div class="ms-num">1</div><div class="ms-line"></div></div>
+                <div class="ms-body">
+                    <div class="ms-title">🤝 Assumimos o financeiro</div>
+                    <div class="ms-desc">A P1P assume responsabilidade pela operação — você foca no negócio</div>
+                </div>
+            </div>
+            <div class="ms">
+                <div class="ms-left"><div class="ms-num">2</div><div class="ms-line"></div></div>
+                <div class="ms-body">
+                    <div class="ms-title">⚙️ Organizamos processos e dados</div>
+                    <div class="ms-desc">Automatizamos com IA e integração via plataforma Nibo</div>
+                </div>
+            </div>
+            <div class="ms">
+                <div class="ms-left"><div class="ms-num">3</div></div>
+                <div class="ms-body">
+                    <div class="ms-title">📊 Transformamos informação em direção</div>
+                    <div class="ms-desc">Dados confiáveis, em tempo real, para decisões estratégicas</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="panel-title">Resultados Práticos</div>
+        <div class="results">
+            <div class="result-item">
+                <div class="result-icon">⚡</div>
+                <div>
+                    <div class="result-label">Decisão Mais Rápida</div>
+                    <div class="result-desc">Informação financeira disponível quando você precisa</div>
+                </div>
+            </div>
+            <div class="result-item">
+                <div class="result-icon">🛡️</div>
+                <div>
+                    <div class="result-label">Menos Risco</div>
+                    <div class="result-desc">Visibilidade total elimina surpresas e riscos invisíveis</div>
+                </div>
+            </div>
+            <div class="result-item">
+                <div class="result-icon">🚀</div>
+                <div>
+                    <div class="result-label">Mais Foco no Crescimento</div>
+                    <div class="result-desc">Você gerencia o negócio. A P1P gerencia o financeiro.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-strip">
+            <div class="cta-text">
+                Seu financeiro sustenta as decisões que você precisa tomar?
+                <span>Converse com um especialista P1P — sem compromisso</span>
+            </div>
+            <div class="cta-tag">→ p1p.com.br</div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+async function downloadInfographic() {
+    const btn = document.getElementById('dl-btn');
+    const status = document.getElementById('dl-status');
+    btn.disabled = true;
+    status.textContent = 'Gerando PNG...';
+    const card = document.getElementById('card');
+    const imgs = card.querySelectorAll('img');
+    imgs.forEach(img => img.style.visibility = 'hidden');
+    const canvas = await html2canvas(card, {
+        scale: 1200 / card.offsetWidth,
+        allowTaint: true, useCORS: false,
+        backgroundColor: '#0D1929', logging: false
+    });
+    imgs.forEach(img => img.style.visibility = '');
+    const link = document.createElement('a');
+    link.download = 'p1p-infografico-semana1-bpo.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    status.textContent = '✓ PNG baixado — pronto para LinkedIn';
+    btn.disabled = false;
+}
+</script>
+</body>
+</html>
