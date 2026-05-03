@@ -19,9 +19,13 @@ SEMANA: [opcional — ex: Semana 1 do plano]
 
 ---
 
-## Exemplos Prontos para Usar
+## Plano Editorial — 4 Semanas (BI + BPO em paralelo)
 
-### Semana 1 — BI
+---
+
+### SEMANA 1
+
+**BI — LinkedIn Post**
 ```
 FORMATO: LinkedIn Post
 AUDIÊNCIA: BI
@@ -30,7 +34,7 @@ TEMA: Por que a maioria dos dashboards não muda nenhuma decisão nas empresas
 DADO OU VINHETA: inclua dado de maturidade analítica no Brasil
 ```
 
-### Semana 1 — complemento
+**BI — Carrossel**
 ```
 FORMATO: Carrossel
 AUDIÊNCIA: BI
@@ -38,29 +42,154 @@ TEMA: Os 3 estágios de maturidade em dados — onde sua empresa está?
 ÂNGULO: Framework visual, cada slide é um estágio
 ```
 
-### Semana 5 — BPO
+**BPO — LinkedIn Post**
 ```
 FORMATO: LinkedIn Post
 AUDIÊNCIA: BPO
-TEMA: Quanto tempo sócios de escritórios gastam em tarefas que não são sua especialidade
-ÂNGULO: Provocativo — o leitor deve se reconhecer no problema
-DADO OU VINHETA: vinheta de escritório de arquitetura médio porte
+TEMA: Quanto do seu dia um sócio de escritório gasta em tarefas que não são sua especialidade
+ÂNGULO: Provocativo — o leitor deve se reconhecer no problema imediatamente
+DADO OU VINHETA: vinheta de escritório de advocacia com 40 colaboradores em SP
 ```
 
-### Semana 6 — BPO Reel
+**BPO — Carrossel**
 ```
-FORMATO: Reel
+FORMATO: Carrossel
+AUDIÊNCIA: BPO
+TEMA: O que um sócio de escritório ganha quando para de fazer tarefas operacionais
+ÂNGULO: Antes e depois — foco no tempo recuperado e no que ele pode fazer com esse tempo
+```
+
+---
+
+### SEMANA 2
+
+**BI — LinkedIn Post**
+```
+FORMATO: LinkedIn Post
+AUDIÊNCIA: BI
+TEMA: Os 3 sinais de que sua empresa ainda não tem maturidade em dados
+ÂNGULO: Lista de diagnóstico — o leitor se autoavalia enquanto lê
+DADO OU VINHETA: inclua vinheta de empresa de médio porte com Power BI implementado mas subutilizado
+```
+
+**BI — Carrossel**
+```
+FORMATO: Carrossel
+AUDIÊNCIA: BI
+TEMA: O erro mais comum em projetos de Power BI — e como evitar
+ÂNGULO: Problema → causa → solução em slides progressivos
+```
+
+**BPO — LinkedIn Post**
+```
+FORMATO: LinkedIn Post
+AUDIÊNCIA: BPO
+TEMA: BPO não é terceirizar pessoas — é terceirizar processos. A diferença importa.
+ÂNGULO: Reframe conceitual — desfazer o preconceito mais comum sobre BPO
+DADO OU VINHETA: inclua dado de crescimento do mercado de BPO no Brasil
+```
+
+**BPO — Carrossel**
+```
+FORMATO: Carrossel
 AUDIÊNCIA: BPO
 TEMA: A diferença entre terceirizar pessoas e terceirizar processos
-ÂNGULO: Reframe conceitual — desfazer o preconceito com BPO
+ÂNGULO: Comparação lado a lado — mitos vs realidade do BPO
 ```
 
-### Lead Magnet — BI
+---
+
+### SEMANA 3
+
+**BI — LinkedIn Post**
+```
+FORMATO: LinkedIn Post
+AUDIÊNCIA: BI
+TEMA: Maturidade em dados — do Excel ao modelo analítico. Onde sua empresa está?
+ÂNGULO: Framework de 4 estágios — o leitor se localiza e quer avançar
+```
+
+**BI — Carrossel**
+```
+FORMATO: Carrossel
+AUDIÊNCIA: BI
+TEMA: 4 estágios de maturidade analítica — diagnóstico visual
+ÂNGULO: Cada slide é um estágio com sintomas, riscos e próximo passo
+```
+
+**BPO — LinkedIn Post**
+```
+FORMATO: LinkedIn Post
+AUDIÊNCIA: BPO
+TEMA: Checklist — seu escritório está pronto para crescer sem contratar mais?
+ÂNGULO: Lead magnet em formato de post — cada item do checklist é uma dor real
+DADO OU VINHETA: vinheta de escritório de arquitetura que cresceu 30% sem novas contratações
+```
+
+**BPO — Carrossel**
+```
+FORMATO: Carrossel
+AUDIÊNCIA: BPO
+TEMA: Os processos que escritórios de serviços profissionais mais terceirizam
+ÂNGULO: Ranking visual com dados — do mais comum ao menos óbvio
+```
+
+---
+
+### SEMANA 4
+
+**BI — LinkedIn Post**
+```
+FORMATO: LinkedIn Post
+AUDIÊNCIA: BI
+TEMA: Por que projetos de BI falham — não é o que você pensa
+ÂNGULO: Contraintuitivo — a causa não é técnica, é organizacional
+DADO OU VINHETA: vinheta de projeto de BI que foi descontinuado após 6 meses por falta de adoção
+```
+
+**BI — Carrossel**
+```
+FORMATO: Carrossel
+AUDIÊNCIA: BI
+TEMA: Como garantir adoção do Power BI na sua empresa
+ÂNGULO: Metodologia de implantação — foco nas pessoas, não na ferramenta
+```
+
+**BPO — LinkedIn Post**
+```
+FORMATO: LinkedIn Post
+AUDIÊNCIA: BPO
+TEMA: O que acontece nos primeiros 90 dias de um processo de BPO
+ÂNGULO: Transparência metodológica — mostrar o processo gera confiança
+DADO OU VINHETA: descrever as 3 fases: diagnóstico, transição, operação
+```
+
+**BPO — Carrossel**
+```
+FORMATO: Carrossel
+AUDIÊNCIA: BPO
+TEMA: Os primeiros 90 dias de BPO — o que esperar em cada fase
+ÂNGULO: Timeline visual — mês 1, mês 2, mês 3 com entregas concretas
+```
+
+---
+
+### LEAD MAGNETS (gerar quando pronto)
+
+**BI**
 ```
 FORMATO: Landing Page
 AUDIÊNCIA: BI
 TEMA: Diagnóstico gratuito de maturidade em dados
-ÂNGULO: Foco no convite à ação — baixar o checklist ou agendar conversa
+ÂNGULO: Foco no convite à ação — checklist de 10 perguntas + conversa com especialista
+```
+
+**BPO**
+```
+FORMATO: Landing Page
+AUDIÊNCIA: BPO
+TEMA: Checklist — está na hora de terceirizar seu back-office?
+ÂNGULO: Autodiagnóstico — o leitor responde e chega à conclusão sozinho
 ```
 
 ---
