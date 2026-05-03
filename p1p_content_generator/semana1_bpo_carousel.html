@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>P1P Carousel — Semana 1 BPO Financeiro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #07101C;
+            font-family: 'Inter', sans-serif;
+            padding: 48px 40px;
+            display: flex; flex-direction: column;
+            align-items: center; gap: 28px;
+        }
+        .page-label {
+            color: rgba(255,255,255,0.2); font-size: 10px;
+            font-weight: 600; letter-spacing: 4px;
+            text-transform: uppercase; text-align: center;
+        }
+        #toolbar {
+            display: flex; gap: 12px; align-items: center;
+            background: #0D1929; border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px; padding: 14px 20px; width: 560px;
+        }
+        #toolbar > div { flex: 1; }
+        #toolbar .t { color: #fff; font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+        #toolbar .s { color: rgba(255,255,255,0.35); font-size: 11px; }
+        #dl-btn {
+            background: linear-gradient(135deg, #1E4DA1, #2A6DD9);
+            color: #fff; border: none; border-radius: 5px;
+            padding: 10px 20px; font-size: 11px; font-weight: 700;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            cursor: pointer; white-space: nowrap;
+        }
+
+        /* BASE */
+        .slide {
+            width: 560px; height: 560px;
+            background: #0D1929;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            justify-content: center; padding: 52px;
+        }
+        .slide-num {
+            position: absolute; top: 24px; right: 28px;
+            color: rgba(255,255,255,0.15); font-size: 10px;
+            font-weight: 700; letter-spacing: 2px;
+        }
+        .logo { position: absolute; bottom: 24px; left: 52px; height: 20px; opacity: 0.45; }
+        .accent { width: 32px; height: 3px; background: #2A6DD9; border-radius: 2px; margin-bottom: 22px; }
+        .tag { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #5B8DEF; margin-bottom: 14px; }
+        .slide-title { font-size: 24px; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 18px; letter-spacing: -0.3px; }
+        .slide-body { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.78; }
+        .slide-body strong { color: rgba(255,255,255,0.85); }
+        .swipe { position: absolute; bottom: 26px; right: 28px; color: rgba(255,255,255,0.18); font-size: 11px; }
+
+        /* SLIDE 1 */
+        .s1-bg {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 75% 25%, rgba(42,109,217,0.15) 0%, transparent 60%),
+                        radial-gradient(ellipse at 25% 80%, rgba(42,109,217,0.07) 0%, transparent 50%);
+        }
+        .s1-grid {
+            position: absolute; inset: 0;
+            background-image: linear-gradient(rgba(42,109,217,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(42,109,217,0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .s1-hook { font-size: 34px; font-weight: 900; color: #fff; line-height: 1.12; letter-spacing: -0.5px; margin-bottom: 18px; position: relative; z-index: 1; }
+        .s1-hook em { color: #5B8DEF; font-style: normal; }
+        .s1-sub { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.65; position: relative; z-index: 1; max-width: 340px; }
+        .nibo-badge {
+            position: absolute; bottom: 52px; right: 52px;
+            background: rgba(42,109,217,0.12); border: 1px solid rgba(42,109,217,0.25);
+            border-radius: 6px; padding: 8px 14px; z-index: 1;
+            font-size: 10px; font-weight: 700; color: #5B8DEF;
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        /* SLIDE 2 — 3 problems */
+        .prob-cards { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+        .prob-card {
+            display: flex; gap: 14px; align-items: center;
+            background: rgba(232,73,73,0.07); border: 1px solid rgba(232,73,73,0.18);
+            border-radius: 8px; padding: 14px 16px;
+        }
+        .prob-icon { font-size: 24px; flex-shrink: 0; }
+        .prob-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .prob-desc { font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.4; }
+
+        /* SLIDE 3 — impact */
+        .impact-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 6px; }
+        .impact-card {
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 8px; padding: 16px 12px; text-align: center;
+        }
+        .impact-icon { font-size: 26px; margin-bottom: 8px; }
+        .impact-label { font-size: 11px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 4px; }
+        .impact-desc { font-size: 10px; color: rgba(255,255,255,0.35); line-height: 1.4; }
+        .impact-card.danger { border-color: rgba(232,73,73,0.2); background: rgba(232,73,73,0.05); }
+
+        /* SLIDE 4 — solution */
+        .sol-cards { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+        .sol-card {
+            display: flex; gap: 14px; align-items: center;
+            background: rgba(42,109,217,0.08); border: 1px solid rgba(42,109,217,0.2);
+            border-radius: 8px; padding: 14px 16px;
+        }
+        .sol-icon { font-size: 22px; flex-shrink: 0; }
+        .sol-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .sol-desc { font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.4; }
+
+        /* SLIDE 5 — methodology */
+        .method-steps { display: flex; flex-direction: column; gap: 0; }
+        .ms-row { display: flex; gap: 16px; align-items: flex-start; }
+        .ms-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+        .ms-num {
+            width: 38px; height: 38px; border-radius: 8px;
+            background: linear-gradient(135deg, #1E4DA1, #2A6DD9);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 800; color: #fff;
+            box-shadow: 0 4px 12px rgba(42,109,217,0.3);
+        }
+        .ms-line { width: 1px; height: 20px; background: linear-gradient(180deg, rgba(42,109,217,0.4), rgba(42,109,217,0.1)); margin: 3px 0; }
+        .ms-content { padding-top: 6px; padding-bottom: 16px; }
+        .ms-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+        .ms-desc { font-size: 11px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+
+        /* SLIDE 6 — nibo */
+        .nibo-logo-area {
+            display: flex; align-items: center; gap: 16px;
+            margin-bottom: 20px;
+        }
+        .nibo-logo-box {
+            background: #fff; border-radius: 8px;
+            padding: 8px 16px; font-size: 18px; font-weight: 900;
+            color: #1E4DA1; letter-spacing: -0.5px;
+        }
+        .plus-sign { font-size: 24px; color: rgba(255,255,255,0.2); font-weight: 300; }
+        .p1p-logo-box {
+            background: rgba(42,109,217,0.15); border: 1px solid rgba(42,109,217,0.3);
+            border-radius: 8px; padding: 8px 16px;
+            font-size: 14px; font-weight: 800; color: #5B8DEF; letter-spacing: 1px;
+        }
+        .feature-list { display: flex; flex-direction: column; gap: 8px; }
+        .feature-item { display: flex; gap: 10px; align-items: flex-start; }
+        .feat-dot { width: 5px; height: 5px; border-radius: 50%; background: #2A6DD9; margin-top: 6px; flex-shrink: 0; }
+        .feat-text { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+        .feat-text strong { color: rgba(255,255,255,0.85); }
+
+        /* SLIDE 7 — results */
+        .result-cards { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+        .result-card {
+            display: flex; gap: 14px; align-items: center;
+            border-radius: 8px; padding: 14px 16px;
+            background: rgba(42,109,217,0.07); border: 1px solid rgba(42,109,217,0.18);
+        }
+        .result-icon { font-size: 24px; flex-shrink: 0; }
+        .result-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .result-desc { font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.4; }
+
+        /* SLIDE 8 — CTA */
+        .s8 { background: linear-gradient(145deg, #0D1929 0%, #0F2240 60%, #0D1929 100%); }
+        .s8-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(42,109,217,0.18) 0%, transparent 55%); }
+        .s8-deco { position: absolute; right: -60px; top: -60px; width: 250px; height: 250px; border: 1px solid rgba(42,109,217,0.12); border-radius: 50%; }
+        .s8-deco2 { position: absolute; right: -110px; top: -110px; width: 380px; height: 380px; border: 1px solid rgba(42,109,217,0.06); border-radius: 50%; }
+        .s8-logo { position: absolute; top: 30px; left: 52px; height: 24px; opacity: 0.8; }
+        .cta-title { font-size: 26px; font-weight: 900; color: #fff; line-height: 1.12; letter-spacing: -0.5px; margin-bottom: 12px; position: relative; z-index: 1; }
+        .cta-body { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.75; margin-bottom: 22px; max-width: 320px; position: relative; z-index: 1; }
+        .cta-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, #1E4DA1, #2A6DD9);
+            color: #fff; font-size: 11px; font-weight: 800;
+            letter-spacing: 2px; text-transform: uppercase;
+            padding: 13px 22px; border-radius: 4px;
+            position: relative; z-index: 1;
+            box-shadow: 0 6px 20px rgba(42,109,217,0.35);
+        }
+        .powered-by {
+            position: absolute; bottom: 24px; right: 28px;
+            font-size: 9px; color: rgba(255,255,255,0.2);
+            font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-label">P1P · Carrossel · Semana 1 · BPO Financeiro</div>
+
+<div id="toolbar">
+    <div>
+        <div class="t">Exportar slides para Instagram</div>
+        <div class="s" id="dl-status">Baixa todos os slides como ZIP com PNGs 1080×1080px</div>
+    </div>
+    <button id="dl-btn" onclick="downloadAll()">⬇ Baixar todos</button>
+</div>
+
+<!-- SLIDE 1 — HERO -->
+<div class="slide">
+    <div class="s1-bg"></div><div class="s1-grid"></div>
+    <div class="slide-num">01 / 08</div>
+    <div class="accent"></div>
+    <div class="s1-hook">Decisão financeira<br>não pode depender<br><em>do operacional.</em></div>
+    <div class="s1-sub">Enquanto seu financeiro roda em planilhas manuais, suas decisões chegam tarde.</div>
+    <div class="nibo-badge">Parceiro oficial Nibo BPO</div>
+    <div class="swipe">deslize →</div>
+    <img class="logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+</div>
+
+<!-- SLIDE 2 — O PROBLEMA -->
+<div class="slide">
+    <div class="slide-num">02 / 08</div>
+    <div class="tag">O problema</div>
+    <div class="accent"></div>
+    <div class="slide-title">Como o financeiro<br>funciona hoje</div>
+    <div class="prob-cards">
+        <div class="prob-card">
+            <div class="prob-icon">⏱️</div>
+            <div><div class="prob-title">Tempo Consumido</div><div class="prob-desc">Gestores dedicando horas a tarefas manuais que não geram decisão</div></div>
+        </div>
+        <div class="prob-card">
+            <div class="prob-icon">📋</div>
+            <div><div class="prob-title">Processos Manuais</div><div class="prob-desc">Planilhas, conciliações atrasadas, dependência de pessoas específicas</div></div>
+        </div>
+        <div class="prob-card">
+            <div class="prob-icon">📉</div>
+            <div><div class="prob-title">Dados Atrasados</div><div class="prob-desc">Informação financeira de semanas atrás sendo usada para decidir hoje</div></div>
+        </div>
+    </div>
+    <img class="logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+</div>
+
+<!-- SLIDE 3 — O IMPACTO -->
+<div class="slide">
+    <div class="slide-num">03 / 08</div>
+    <div class="tag">O impacto</div>
+    <div class="accent"></div>
+    <div class="slide-title">O que acontece<br>quando o financeiro<br>não sustenta a gestão</div>
+    <div class="impact-grid">
+        <div class="impact-card danger">
+            <div class="impact-icon">🔄</div>
+            <div class="impact-label">Decisões Reativas</div>
+            <div class="impact-desc">Você decide com base em crise, não em estratégia</div>
+        </div>
+        <div class="impact-card danger">
+            <div class="impact-icon">🌫️</div>
+            <div class="impact-label">Falta de Previsibilidade</div>
+            <div class="impact-desc">Fluxo de caixa impreciso, surpresas frequentes</div>
+        </div>
+        <div class="impact-card danger">
+            <div class="impact-icon">⚠️</div>
+            <div class="impact-label">Risco Invisível</div>
+            <div class="impact-desc">Problemas que só aparecem quando já é tarde</div>
+        </div>
+    </div>
+    <img class="logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+</div>
+
+<!-- SLIDE 4 — A SOLUÇÃO -->
+<div class="slide">
+    <div class="slide-num">04 / 08</div>
+    <div class="tag">A solução — BPO Financeiro</div>
+    <div class="accent"></div>
+    <div class="slide-title">Operação financeira<br>que sustenta decisão</div>
+    <div class="sol-cards">
+        <div class="sol-card">
+            <div class="sol-icon">🏗️</div>
+            <div><div class="sol-title">Operação Estruturada</div><div class="sol-desc">Processos definidos, responsabilidades claras, sem dependência de pessoas</div></div>
+        </div>
+        <div class="sol-card">
+            <div class="sol-icon">🔗</div>
+            <div><div class="sol-title">Dados Integrados</div><div class="sol-desc">Informação financeira em tempo real, automatizada e rastreável</div></div>
+        </div>
+        <div class="sol-card">
+            <div class="sol-icon">🛡️</div>
+            <div><div class="sol-title">Governança e Controle</div><div class="sol-desc">Indicadores, SLAs e visibilidade total para a liderança</div></div>
+        </div>
+    </div>
+    <img class="logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+</div>
+
+<!-- SLIDE 5 — COMO ATUAMOS -->
+<div class="slide">
+    <div class="slide-num">05 / 08</div>
+    <div class="tag">Como atuamos</div>
+    <div class="accent"></div>
+    <div class="slide-title" style="margin-bottom:22px;">3 etapas para transformar<br>seu financeiro</div>
+    <div class="method-steps">
+        <div class="ms-row">
+            <div class="ms-left"><div class="ms-num">1</div><div class="ms-line"></div></div>
+            <div class="ms-content">
+                <div class="ms-title">🤝 Assumimos o financeiro</div>
+                <div class="ms-desc">A P1P toma responsabilidade pela operação financeira — você foca no negócio</div>
+            </div>
+        </div>
+        <div class="ms-row">
+            <div class="ms-left"><div class="ms-num">2</div><div class="ms-line"></div></div>
+            <div class="ms-content">
+                <div class="ms-title">⚙️ Organizamos processos e dados</div>
+                <div class="ms-desc">Estruturamos e automatizamos com a plataforma Nibo BPO</div>
+            </div>
+        </div>
+        <div class="ms-row">
+            <div class="ms-left"><div class="ms-num">3</div></div>
+            <div class="ms-content">
+                <div class="ms-title">📊 Transformamos informação em direção</div>
+                <div class="ms-desc">Dados financeiros confiáveis que sustentam decisões estratégicas</div>
+            </div>
+        </div>
+    </div>
+    <img class="logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+</div>
+
+<!-- SLIDE 6 — NIBO PARTNERSHIP -->
+<div class="slide">
+    <div class="slide-num">06 / 08</div>
+    <div class="tag">Tecnologia por trás</div>
+    <div class="accent"></div>
+    <div class="nibo-logo-area">
+        <div class="p1p-logo-box">P1P</div>
+        <div class="plus-sign">+</div>
+        <div class="nibo-logo-box">nibo</div>
+    </div>
+    <div class="slide-title" style="font-size:18px;margin-bottom:16px;">Expertise + plataforma líder<br>em BPO Financeiro no Brasil</div>
+    <div class="feature-list">
+        <div class="feature-item"><div class="feat-dot"></div><div class="feat-text"><strong>IA para gestão financeira</strong> — conciliação automática, lançamentos inteligentes</div></div>
+        <div class="feature-item"><div class="feat-dot"></div><div class="feat-text"><strong>Automação de contas a pagar e receber</strong> — sem processo manual</div></div>
+        <div class="feature-item"><div class="feat-dot"></div><div class="feat-text"><strong>Fluxo de caixa em tempo real</strong> — dados precisos para decisão imediata</div></div>
+        <div class="feature-item"><div class="feat-dot"></div><div class="feat-text"><strong>+440 mil empresas</strong> usam a plataforma Nibo no Brasil</div></div>
+    </div>
+    <img class="logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+</div>
+
+<!-- SLIDE 7 — RESULTADOS -->
+<div class="slide">
+    <div class="slide-num">07 / 08</div>
+    <div class="tag">Resultados práticos</div>
+    <div class="accent"></div>
+    <div class="slide-title">O que muda<br>na sua gestão</div>
+    <div class="result-cards">
+        <div class="result-card">
+            <div class="result-icon">⚡</div>
+            <div><div class="result-title">Decisão Mais Rápida</div><div class="result-desc">Informação financeira disponível quando você precisa, não quando fica pronta</div></div>
+        </div>
+        <div class="result-card">
+            <div class="result-icon">🛡️</div>
+            <div><div class="result-title">Menos Risco</div><div class="result-desc">Visibilidade sobre o financeiro elimina surpresas e riscos invisíveis</div></div>
+        </div>
+        <div class="result-card">
+            <div class="result-icon">🚀</div>
+            <div><div class="result-title">Mais Foco no Crescimento</div><div class="result-desc">Você gerencia o negócio. A P1P gerencia o financeiro.</div></div>
+        </div>
+    </div>
+    <img class="logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+</div>
+
+<!-- SLIDE 8 — CTA -->
+<div class="slide s8">
+    <div class="s8-bg"></div><div class="s8-deco"></div><div class="s8-deco2"></div>
+    <div class="slide-num">08 / 08</div>
+    <img class="s8-logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+    <div style="margin-top:60px; position:relative; z-index:1;">
+        <div class="accent"></div>
+        <div class="cta-title">Seu financeiro sustenta<br>as decisões que você<br>precisa tomar?</div>
+        <div class="cta-body">Se a resposta é não — ou não tenho certeza — vale uma conversa sem compromisso.</div>
+        <div class="cta-btn">→ &nbsp;Link na bio</div>
+    </div>
+    <div class="powered-by">tecnologia Nibo BPO</div>
+</div>
+
+<script>
+async function captureSlide(slide) {
+    const imgs = slide.querySelectorAll('img');
+    imgs.forEach(img => img.style.visibility = 'hidden');
+    const canvas = await html2canvas(slide, {
+        scale: 1080 / slide.offsetWidth,
+        allowTaint: true, useCORS: false,
+        backgroundColor: '#0D1929', logging: false, imageTimeout: 0
+    });
+    imgs.forEach(img => img.style.visibility = '');
+    return canvas;
+}
+async function downloadAll() {
+    const btn = document.getElementById('dl-btn');
+    const status = document.getElementById('dl-status');
+    btn.disabled = true;
+    const slides = document.querySelectorAll('.slide');
+    const zip = new JSZip();
+    for (let i = 0; i < slides.length; i++) {
+        status.textContent = `Exportando slide ${i+1} de ${slides.length}...`;
+        const canvas = await captureSlide(slides[i]);
+        const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
+        zip.file(`p1p-bpo-semana1-slide${String(i+1).padStart(2,'0')}.png`, blob);
+    }
+    status.textContent = 'Gerando ZIP...';
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    const link = document.createElement('a');
+    link.download = 'p1p-carrossel-semana1-bpo.zip';
+    link.href = URL.createObjectURL(zipBlob);
+    link.click();
+    status.textContent = '✓ Concluído — extraia e publique';
+    btn.disabled = false;
+}
+</script>
+</body>
+</html>
