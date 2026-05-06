@@ -842,7 +842,13 @@
             <div class="cta-form reveal reveal-delay-1">
                 <div class="form-title">Agende seu diagnóstico</div>
                 <div class="form-sub">Preencha e entraremos em contato em até 24h</div>
-                <form onsubmit="handleSubmit(event)">
+                <form action="https://formsubmit.co/contato@p1p.com.br" method="POST">
+                    <!-- FormSubmit config -->
+                    <input type="hidden" name="_subject" value="Novo lead — Diagnóstico BPO Financeiro P1P">
+                    <input type="hidden" name="_next" value="https://www.p1p.com.br?obrigado=1">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+
                     <div class="form-group">
                         <label class="form-label">Nome completo</label>
                         <input type="text" class="form-input" placeholder="Seu nome" required>
@@ -897,18 +903,7 @@
         document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('visible'));
     }, 100);
 
-    /* ── Form submit ── */
-    function handleSubmit(e) {
-        e.preventDefault();
-        const btn = e.target.querySelector('.form-submit');
-        btn.textContent = '✓ Enviado! Entraremos em contato em breve.';
-        btn.style.background = 'linear-gradient(135deg, #1A6644, #22885A)';
-        btn.disabled = true;
-        /*
-            TODO: Connect to WordPress form handler, WPForms, or Gravity Forms
-            Or send via EmailJS / FormSubmit.co for quick setup
-        */
-    }
+    /* Form handled by FormSubmit.co → contato@p1p.com.br */
 
     /* ── Nav scroll effect ── */
     window.addEventListener('scroll', () => {
