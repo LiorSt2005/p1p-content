@@ -42,7 +42,7 @@
             background: #0D1929;
             position: relative; overflow: hidden;
             display: flex; flex-direction: column;
-            justify-content: center; padding: 52px;
+            justify-content: center; padding: 44px 52px 82px 52px;
         }
         .slide-num {
             position: absolute; top: 24px; right: 28px;
@@ -50,12 +50,12 @@
             font-weight: 700; letter-spacing: 2px;
         }
         .logo { position: absolute; bottom: 24px; left: 52px; height: 40px; opacity: 0.75; }
-        .accent { width: 32px; height: 3px; background: #2A6DD9; border-radius: 2px; margin-bottom: 22px; }
-        .tag { font-size: 17px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #5B8DEF; margin-bottom: 14px; }
-        .slide-title { font-size: 38px; font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 18px; letter-spacing: -0.5px; }
+        .accent { width: 32px; height: 3px; background: #2A6DD9; border-radius: 2px; margin-bottom: 16px; }
+        .tag { font-size: 17px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #5B8DEF; margin-bottom: 10px; }
+        .slide-title { font-size: 38px; font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 14px; letter-spacing: -0.5px; }
         .slide-body { font-size: 20px; color: rgba(255,255,255,0.55); line-height: 1.7; }
         .slide-body strong { color: rgba(255,255,255,0.85); }
-        .swipe { position: absolute; bottom: 26px; right: 28px; color: rgba(255,255,255,0.18); font-size: 11px; }
+        .swipe { position: absolute; bottom: 74px; right: 28px; color: rgba(255,255,255,0.18); font-size: 11px; }
 
         /* SLIDE 1 */
         .s1-bg {
@@ -72,7 +72,7 @@
         .s1-hook em { color: #5B8DEF; font-style: normal; }
         .s1-sub { font-size: 20px; color: rgba(255,255,255,0.4); line-height: 1.6; position: relative; z-index: 1; max-width: 360px; }
         .nibo-badge {
-            position: absolute; bottom: 52px; right: 52px;
+            position: absolute; bottom: 76px; right: 52px;
             background: rgba(42,109,217,0.12); border: 1px solid rgba(42,109,217,0.25);
             border-radius: 6px; padding: 8px 14px; z-index: 1;
             font-size: 10px; font-weight: 700; color: #5B8DEF;
@@ -80,37 +80,38 @@
         }
 
         /* SLIDE 2 — 3 problems */
-        .prob-cards { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+        .prob-cards { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
         .prob-card {
             display: flex; gap: 14px; align-items: center;
             background: rgba(232,73,73,0.07); border: 1px solid rgba(232,73,73,0.18);
-            border-radius: 8px; padding: 13px 16px;
+            border-radius: 8px; padding: 11px 14px;
         }
         .prob-icon { font-size: 34px; flex-shrink: 0; }
         .prob-title { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 3px; }
-        .prob-desc { font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.4; }
+        .prob-desc { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.4; }
 
         /* SLIDE 3 — impact */
-        .impact-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 6px; }
+        .impact-grid { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
         .impact-card {
-            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
-            border-radius: 8px; padding: 14px 10px; text-align: center;
+            display: flex; gap: 14px; align-items: center;
+            background: rgba(232,73,73,0.05); border: 1px solid rgba(232,73,73,0.18);
+            border-left: 3px solid #E84949;
+            border-radius: 8px; padding: 11px 14px;
         }
-        .impact-icon { font-size: 36px; margin-bottom: 8px; }
-        .impact-label { font-size: 19px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 4px; overflow-wrap: break-word; }
-        .impact-desc { font-size: 15px; color: rgba(255,255,255,0.35); line-height: 1.4; }
-        .impact-card.danger { border-color: rgba(232,73,73,0.2); background: rgba(232,73,73,0.05); }
+        .impact-icon { font-size: 32px; flex-shrink: 0; }
+        .impact-label { font-size: 22px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 2px; }
+        .impact-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.4; }
 
         /* SLIDE 4 — solution */
-        .sol-cards { display: flex; flex-direction: column; gap: 9px; margin-top: 4px; }
+        .sol-cards { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
         .sol-card {
             display: flex; gap: 14px; align-items: center;
             background: rgba(42,109,217,0.08); border: 1px solid rgba(42,109,217,0.2);
-            border-radius: 8px; padding: 13px 16px;
+            border-radius: 8px; padding: 11px 14px;
         }
         .sol-icon { font-size: 32px; flex-shrink: 0; }
         .sol-title { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 3px; }
-        .sol-desc { font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.4; }
+        .sol-desc { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.4; }
 
         /* SLIDE 5 — methodology */
         .method-steps { display: flex; flex-direction: column; gap: 0; }
@@ -124,9 +125,9 @@
             box-shadow: 0 4px 12px rgba(42,109,217,0.3);
         }
         .ms-line { width: 1px; height: 20px; background: linear-gradient(180deg, rgba(42,109,217,0.4), rgba(42,109,217,0.1)); margin: 3px 0; }
-        .ms-content { padding-top: 6px; padding-bottom: 14px; }
+        .ms-content { padding-top: 6px; padding-bottom: 10px; }
         .ms-title { font-size: 27px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-        .ms-desc { font-size: 17px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+        .ms-desc { font-size: 15px; color: rgba(255,255,255,0.4); line-height: 1.5; }
 
         /* SLIDE 6 — nibo */
         .nibo-logo-area {
@@ -151,15 +152,15 @@
         .feat-text strong { color: rgba(255,255,255,0.85); }
 
         /* SLIDE 7 — results */
-        .result-cards { display: flex; flex-direction: column; gap: 9px; margin-top: 4px; }
+        .result-cards { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
         .result-card {
             display: flex; gap: 14px; align-items: center;
-            border-radius: 8px; padding: 13px 16px;
+            border-radius: 8px; padding: 11px 14px;
             background: rgba(42,109,217,0.07); border: 1px solid rgba(42,109,217,0.18);
         }
         .result-icon { font-size: 32px; flex-shrink: 0; }
         .result-title { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 3px; }
-        .result-desc { font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.4; }
+        .result-desc { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.4; }
 
         /* SLIDE 8 — CTA */
         .s8 { background: linear-gradient(145deg, #0D1929 0%, #0F2240 60%, #0D1929 100%); }
@@ -238,7 +239,7 @@
     <div class="slide-num">03 / 08</div>
     <div class="tag">O impacto</div>
     <div class="accent"></div>
-    <div class="slide-title">O que acontece<br>quando o financeiro<br>não sustenta a gestão</div>
+    <div class="slide-title">O que acontece<br>sem estrutura<br>financeira</div>
     <div class="impact-grid">
         <div class="impact-card danger">
             <div class="impact-icon">🔄</div>
