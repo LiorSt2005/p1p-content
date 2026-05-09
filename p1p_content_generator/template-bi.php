@@ -1,0 +1,778 @@
+<?php
+/**
+ * Template Name: BI Landing Page
+ * Description: Standalone landing page — no theme header/footer
+ */
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Intelligence | P1P – Priority Partners</title>
+    <meta name="description" content="Transformamos dados em conhecimento e conhecimento em ação. Dashboards Power BI estratégicos para empresas que querem decidir com precisão.">
+    <meta property="og:title" content="BI Estratégico | P1P – Priority Partners">
+    <meta property="og:description" content="Dados que não se traduzem em ação são apenas custo. A P1P constrói o painel de controle do seu negócio.">
+    <meta property="og:type" content="website">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg:       #060D18;
+            --bg2:      #0A1420;
+            --card:     #0D1929;
+            --card2:    #0F1E30;
+            --blue:     #2A6DD9;
+            --blue-l:   #5B8DEF;
+            --cyan:     #06B6D4;
+            --green:    #10B981;
+            --red:      #EF4444;
+            --yellow:   #F59E0B;
+            --border:   rgba(42,109,217,0.15);
+            --text:     rgba(255,255,255,0.92);
+            --dim:      rgba(255,255,255,0.5);
+            --muted:    rgba(255,255,255,0.25);
+        }
+
+        html { scroll-behavior: smooth; }
+        body { background: var(--bg); font-family: 'Inter', sans-serif; color: var(--text); overflow-x: hidden; }
+
+        /* UTILS */
+        .container { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s} .d4{transition-delay:.4s}
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(6,13,24,0.92); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            max-width: 1160px; margin: 0 auto; padding: 0 32px;
+            display: flex; align-items: center; justify-content: space-between; height: 68px;
+        }
+        .nav-logo img { height: 60px; opacity: 0.9; }
+        .nav-pill {
+            background: rgba(42,109,217,0.1); border: 1px solid rgba(42,109,217,0.2);
+            border-radius: 100px; padding: 5px 14px;
+            font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+            text-transform: uppercase; color: var(--blue-l);
+        }
+        .nav-cta {
+            background: linear-gradient(135deg,#1E4DA1,#2A6DD9);
+            color: #fff; text-decoration: none; padding: 10px 22px;
+            border-radius: 6px; font-size: 13px; font-weight: 700;
+            transition: opacity .2s; letter-spacing: .3px;
+        }
+        .nav-cta:hover { opacity: .85; }
+
+        /* ══ HERO ══ */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            padding: 120px 32px 80px; position: relative; overflow: hidden;
+        }
+        .hero-glow {
+            position: absolute; inset: 0; pointer-events: none;
+            background:
+                radial-gradient(ellipse at 65% 40%, rgba(42,109,217,0.14) 0%, transparent 55%),
+                radial-gradient(ellipse at 20% 70%, rgba(6,182,212,0.07) 0%, transparent 45%);
+        }
+        .hero-dots {
+            position: absolute; inset: 0; pointer-events: none;
+            background-image:
+                linear-gradient(rgba(42,109,217,0.045) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(42,109,217,0.045) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+        .hero-inner {
+            max-width: 1160px; margin: 0 auto; width: 100%;
+            display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center;
+            position: relative; z-index: 1;
+        }
+        .hero-tag {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(42,109,217,0.1); border: 1px solid rgba(42,109,217,0.22);
+            border-radius: 100px; padding: 7px 18px; margin-bottom: 28px;
+            font-size: 11px; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--blue-l);
+        }
+        .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: blink 2s infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+        .hero-h1 {
+            font-size: 60px; font-weight: 900; line-height: 1.04; letter-spacing: -2px;
+            color: #fff; margin-bottom: 22px;
+        }
+        .hero-h1 em { font-style: normal; color: var(--blue-l); }
+        .hero-h1 .accent-cyan { color: var(--cyan); }
+        .hero-sub {
+            font-size: 18px; color: var(--dim); line-height: 1.72;
+            max-width: 480px; margin-bottom: 40px;
+        }
+        .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+        .btn-wa {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: #25D366; color: #fff; text-decoration: none;
+            padding: 15px 26px; border-radius: 8px; font-size: 15px; font-weight: 700;
+            box-shadow: 0 8px 24px rgba(37,211,102,0.28);
+            transition: transform .2s, box-shadow .2s;
+        }
+        .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(37,211,102,0.38); }
+        .btn-ghost {
+            display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+            padding: 15px 26px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.18);
+            color: #fff; font-size: 15px; font-weight: 600;
+            transition: border-color .2s, background .2s;
+        }
+        .btn-ghost:hover { border-color: var(--blue); background: rgba(42,109,217,0.08); }
+
+        /* DASHBOARD MOCKUP */
+        .dash-wrap { position: relative; }
+        .dash-glow {
+            position: absolute; inset: -60px;
+            background: radial-gradient(ellipse, rgba(42,109,217,0.22) 0%, transparent 68%);
+            pointer-events: none;
+        }
+        .dash {
+            background: #0A1828;
+            border: 1px solid rgba(42,109,217,0.35);
+            border-radius: 14px; overflow: hidden;
+            transform: perspective(1100px) rotateY(-7deg) rotateX(2.5deg);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(42,109,217,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+            position: relative; z-index: 1;
+        }
+
+        /* Dashboard header bar */
+        .db-bar {
+            background: #071120; border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 9px 16px; display: flex; align-items: center; justify-content: space-between;
+        }
+        .db-bar-title { font-size: 10px; font-weight: 700; color: rgba(255,255,255,.65); letter-spacing: .5px; }
+        .db-live { display: flex; align-items: center; gap: 5px; font-size: 8px; font-weight: 700; color: var(--green); letter-spacing: 1px; text-transform: uppercase; }
+        .db-live span { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: blink 1.5s infinite; }
+        .db-pills { display: flex; gap: 5px; }
+        .db-pill { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07); border-radius: 3px; padding: 2px 7px; font-size: 8px; color: var(--dim); }
+
+        /* KPI row */
+        .db-kpis { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(255,255,255,0.04); }
+        .db-kpi { background: #0A1828; padding: 11px 14px; }
+        .kpi-lbl { font-size: 8px; color: var(--muted); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+        .kpi-val { font-size: 19px; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -.5px; margin-bottom: 3px; }
+        .kpi-trend { font-size: 8px; font-weight: 700; display: flex; align-items: center; gap: 3px; }
+        .up { color: var(--green); }
+        .dn { color: var(--red); }
+
+        /* Charts row */
+        .db-charts { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1px; background: rgba(255,255,255,0.04); }
+        .db-chart { background: #0A1828; padding: 11px 14px; }
+        .db-chart-lbl { font-size: 8px; font-weight: 700; color: var(--dim); letter-spacing: .5px; text-transform: uppercase; margin-bottom: 8px; }
+
+        /* Bar chart */
+        .bars { display: flex; align-items: flex-end; gap: 4px; height: 62px; }
+        .bar-col { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; }
+        .bar-fill { width: 100%; border-radius: 2px 2px 0 0; transform-origin: bottom; animation: growBar 1.5s ease-out forwards; }
+        .bar-fill.b { background: linear-gradient(to top, #1E4DA1, #2A6DD9); }
+        .bar-fill.c { background: linear-gradient(to top, #0891B2, #06B6D4); }
+        @keyframes growBar { from{transform:scaleY(0)} to{transform:scaleY(1)} }
+        .bar-lbl { font-size: 7px; color: var(--muted); }
+
+        /* Donut chart */
+        .donut-row { display: flex; align-items: center; gap: 14px; }
+        .donut {
+            width: 60px; height: 60px; flex-shrink: 0; border-radius: 50%; position: relative;
+            background: conic-gradient(#2A6DD9 0% 40%, #06B6D4 40% 65%, #10B981 65% 83%, #F59E0B 83% 100%);
+        }
+        .donut::after { content:''; position:absolute; inset:13px; border-radius:50%; background:#0A1828; }
+        .donut-legend { display: flex; flex-direction: column; gap: 4px; }
+        .dl-item { display: flex; align-items: center; gap: 5px; font-size: 8px; color: var(--dim); }
+        .dl-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+        /* Bottom row — sparkline + table */
+        .db-bottom { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1px; background: rgba(255,255,255,0.04); }
+        .db-spark { background: #0A1828; padding: 11px 14px; }
+        .db-table-wrap { background: #0A1828; padding: 11px 14px; }
+        .mini-table { width: 100%; border-collapse: collapse; }
+        .mini-table td { font-size: 8px; padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--dim); vertical-align: middle; }
+        .mini-table td:first-child { color: rgba(255,255,255,.7); }
+        .mini-table td:last-child { text-align: right; }
+
+        /* ══ TRUST BAR ══ */
+        .trust {
+            background: rgba(42,109,217,0.05); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            padding: 18px 32px;
+        }
+        .trust-inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
+        .trust-item { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--dim); letter-spacing: .3px; }
+        .trust-item::before { content:''; width:4px; height:4px; border-radius:50%; background:var(--blue-l); }
+
+        /* ══ SECTIONS ══ */
+        .sec { padding: 100px 32px; }
+        .sec-alt { background: var(--bg2); }
+        .sec-tag { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--blue-l); margin-bottom: 14px; }
+        .sec-h2 { font-size: 44px; font-weight: 900; line-height: 1.1; letter-spacing: -1px; color: #fff; margin-bottom: 18px; }
+        .sec-h2 em { font-style: normal; color: var(--blue-l); }
+        .sec-h2 .em-cyan { color: var(--cyan); }
+        .sec-sub { font-size: 18px; color: var(--dim); line-height: 1.7; max-width: 620px; margin-bottom: 60px; }
+
+        /* PROBLEM */
+        .prob-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+        .prob-card {
+            background: var(--card); border: 1px solid rgba(239,68,68,0.14);
+            border-radius: 12px; padding: 32px 28px; position: relative; overflow: hidden;
+        }
+        .prob-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#EF4444,#F59E0B); }
+        .prob-icon { font-size: 30px; margin-bottom: 16px; }
+        .prob-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+        .prob-text { font-size: 14px; color: var(--dim); line-height: 1.65; }
+
+        /* AGITATE */
+        .agitate {
+            background: linear-gradient(135deg,#09172A 0%,#0C1F38 100%);
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            padding: 90px 32px; text-align: center;
+        }
+        .agitate-q { max-width: 860px; margin: 0 auto; font-size: 36px; font-weight: 900; line-height: 1.25; color: #fff; letter-spacing: -.5px; }
+        .agitate-q em { color: var(--cyan); font-style: normal; }
+        .agitate-sub { margin-top: 22px; font-size: 17px; color: var(--dim); max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+
+        /* SOLUTION */
+        .sol-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+        .sol-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 32px 28px;
+            transition: border-color .3s, transform .3s;
+        }
+        .sol-card:hover { border-color: rgba(42,109,217,0.4); transform: translateY(-4px); }
+        .sol-icon {
+            width: 52px; height: 52px; border-radius: 12px; margin-bottom: 20px;
+            background: linear-gradient(135deg,rgba(42,109,217,0.18),rgba(42,109,217,0.06));
+            border: 1px solid rgba(42,109,217,0.22);
+            display: flex; align-items: center; justify-content: center; font-size: 24px;
+        }
+        .sol-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+        .sol-text { font-size: 14px; color: var(--dim); line-height: 1.65; }
+
+        /* HOW */
+        .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; position: relative; }
+        .steps::before {
+            content:''; position:absolute; top:28px; left:16.66%; right:16.66%; height:1px;
+            background: linear-gradient(90deg,transparent,var(--blue),transparent);
+        }
+        .step { text-align: center; }
+        .step-num {
+            width: 56px; height: 56px; border-radius: 14px; margin: 0 auto 22px;
+            background: linear-gradient(135deg,#1E4DA1,#2A6DD9);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; font-weight: 900; color: #fff;
+            box-shadow: 0 8px 28px rgba(42,109,217,0.38); position: relative; z-index: 1;
+        }
+        .step-title { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 12px; }
+        .step-text { font-size: 14px; color: var(--dim); line-height: 1.65; }
+
+        /* RESULTS */
+        .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+        .stat-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 36px 24px; text-align: center;
+        }
+        .stat-val { font-size: 48px; font-weight: 900; color: var(--blue-l); letter-spacing: -2px; line-height: 1; margin-bottom: 10px; }
+        .stat-lbl { font-size: 14px; color: var(--dim); line-height: 1.55; }
+
+        /* OFFER */
+        .offer-box {
+            max-width: 920px; margin: 60px auto 0;
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 52px; position: relative; overflow: hidden;
+        }
+        .offer-box::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#2A6DD9,#06B6D4); }
+        .offer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; }
+        .offer-h { font-size: 28px; font-weight: 900; color: #fff; margin-bottom: 24px; }
+        .offer-list { display: flex; flex-direction: column; gap: 14px; }
+        .offer-item { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--dim); line-height: 1.55; }
+        .check { width: 20px; height: 20px; border-radius: 50%; background: rgba(16,185,129,.12); border: 1px solid var(--green); display: flex; align-items: center; justify-content: center; color: var(--green); font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+        .offer-hl { background: rgba(42,109,217,0.08); border: 1px solid var(--border); border-radius: 10px; padding: 26px; }
+        .offer-hl-tag { font-size: 11px; font-weight: 700; color: var(--blue-l); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+        .offer-hl-text { font-size: 15px; color: var(--dim); line-height: 1.7; }
+        .offer-hl-text strong { color: #fff; }
+
+        /* FORM */
+        .form-inner { max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+        .form-h { font-size: 38px; font-weight: 900; color: #fff; line-height: 1.1; letter-spacing: -.5px; margin-bottom: 16px; }
+        .form-sub { font-size: 16px; color: var(--dim); line-height: 1.7; margin-bottom: 36px; }
+        .wa-block {
+            display: flex; align-items: center; gap: 16px;
+            background: rgba(37,211,102,0.07); border: 1px solid rgba(37,211,102,0.2);
+            border-radius: 12px; padding: 20px 24px; margin-bottom: 24px;
+            text-decoration: none; transition: border-color .2s, background .2s;
+        }
+        .wa-block:hover { border-color: rgba(37,211,102,0.4); background: rgba(37,211,102,0.1); }
+        .wa-ico { font-size: 32px; flex-shrink: 0; }
+        .wa-t { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+        .wa-s { font-size: 13px; color: var(--dim); }
+        .promise { display: flex; flex-direction: column; gap: 10px; }
+        .promise-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--dim); }
+        .promise-item::before { content:'✓'; color: var(--green); font-weight: 800; font-size: 14px; }
+
+        /* Contact form card */
+        .form-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 40px 36px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .field { margin-bottom: 18px; }
+        .field label { display: block; font-size: 12px; font-weight: 700; color: rgba(255,255,255,.55); letter-spacing: .3px; margin-bottom: 7px; text-transform: uppercase; }
+        .field input, .field textarea {
+            width: 100%; background: var(--bg2); border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 8px; padding: 13px 16px; color: #fff;
+            font-family: inherit; font-size: 14px; outline: none;
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .field input:focus, .field textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(42,109,217,0.15); }
+        .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,.2); }
+        .field textarea { height: 90px; resize: vertical; }
+        .sub-btn {
+            width: 100%; background: linear-gradient(135deg,#1E4DA1,#2A6DD9);
+            color: #fff; border: none; border-radius: 8px;
+            padding: 16px; font-size: 15px; font-weight: 700; letter-spacing: .3px;
+            cursor: pointer; transition: opacity .2s, transform .2s;
+        }
+        .sub-btn:hover { opacity: .9; transform: translateY(-1px); }
+        .form-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 12px; }
+
+        /* FOOTER */
+        footer {
+            background: #040A12; border-top: 1px solid var(--border);
+            padding: 48px 32px; text-align: center;
+        }
+        .foot-logo img { height: 52px; opacity: 0.35; margin-bottom: 16px; }
+        .foot-motto { font-size: 11px; color: rgba(42,109,217,0.5); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 12px; }
+        .foot-copy { font-size: 13px; color: var(--muted); }
+
+        /* ── obrigado ── */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0; z-index: 999;
+            background: rgba(6,13,24,0.94); backdrop-filter: blur(8px);
+            align-items: center; justify-content: center;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal-box {
+            background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+            padding: 56px; max-width: 480px; text-align: center;
+        }
+        .modal-icon { font-size: 56px; margin-bottom: 20px; }
+        .modal-h { font-size: 28px; font-weight: 900; color: #fff; margin-bottom: 12px; }
+        .modal-p { font-size: 16px; color: var(--dim); line-height: 1.65; }
+        .modal-close { margin-top: 28px; padding: 12px 28px; background: var(--blue); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+    <div class="nav-inner">
+        <a href="https://www.p1p.com.br">
+            <img src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P Priority Partners" style="height:60px;opacity:.9;">
+        </a>
+        <span class="nav-pill">Business Intelligence</span>
+        <a href="#contato" class="nav-cta">Agendar demonstração →</a>
+    </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-dots"></div>
+    <div class="hero-inner">
+        <!-- LEFT: copy -->
+        <div class="hero-copy">
+            <div class="hero-tag"><span class="live-dot"></span> Business Intelligence · Power BI</div>
+            <h1 class="hero-h1">
+                Dados que não<br>
+                se traduzem em<br>
+                <em>ação</em> são custo.
+            </h1>
+            <p class="hero-sub">
+                Transformamos dados em conhecimento e conhecimento em ação.
+                A P1P constrói o painel de controle estratégico do seu negócio — para que cada decisão seja baseada em informação real, em tempo real.
+            </p>
+            <div class="hero-ctas">
+                <a href="https://wa.me/5521991457813?text=Olá%2C%20vi%20sobre%20o%20BI%20da%20P1P%20e%20gostaria%20de%20agendar%20uma%20demonstração%20de%20dashboard." class="btn-wa" target="_blank">
+                    💬 Falar no WhatsApp
+                </a>
+                <a href="#contato" class="btn-ghost">Ver demonstração →</a>
+            </div>
+        </div>
+
+        <!-- RIGHT: dashboard mockup -->
+        <div class="dash-wrap reveal d2">
+            <div class="dash-glow"></div>
+            <div class="dash">
+
+                <!-- Dashboard header bar -->
+                <div class="db-bar">
+                    <span class="db-bar-title">📊 Painel Executivo — 2026</span>
+                    <div class="db-pills">
+                        <span class="db-pill">Jan–Mai ▾</span>
+                        <span class="db-pill">Todas Unidades ▾</span>
+                    </div>
+                    <div class="db-live"><span></span> Ao vivo</div>
+                </div>
+
+                <!-- KPI row -->
+                <div class="db-kpis">
+                    <div class="db-kpi">
+                        <div class="kpi-lbl">Receita Total</div>
+                        <div class="kpi-val">R$4.2M</div>
+                        <div class="kpi-trend up">▲ +18% vs período ant.</div>
+                    </div>
+                    <div class="db-kpi">
+                        <div class="kpi-lbl">Margem Líquida</div>
+                        <div class="kpi-val">23.4%</div>
+                        <div class="kpi-trend up">▲ +2.1pp</div>
+                    </div>
+                    <div class="db-kpi">
+                        <div class="kpi-lbl">Clientes Ativos</div>
+                        <div class="kpi-val">847</div>
+                        <div class="kpi-trend up">▲ +134 novos</div>
+                    </div>
+                    <div class="db-kpi">
+                        <div class="kpi-lbl">Ticket Médio</div>
+                        <div class="kpi-val">R$4.9k</div>
+                        <div class="kpi-trend dn">▼ −3% sazonalidade</div>
+                    </div>
+                </div>
+
+                <!-- Charts row -->
+                <div class="db-charts">
+                    <div class="db-chart">
+                        <div class="db-chart-lbl">Receita por Mês</div>
+                        <div class="bars">
+                            <div class="bar-col"><div class="bar-fill b" style="height:62%"></div><div class="bar-lbl">Dez</div></div>
+                            <div class="bar-col"><div class="bar-fill b" style="height:70%"></div><div class="bar-lbl">Jan</div></div>
+                            <div class="bar-col"><div class="bar-fill b" style="height:60%"></div><div class="bar-lbl">Fev</div></div>
+                            <div class="bar-col"><div class="bar-fill b" style="height:79%"></div><div class="bar-lbl">Mar</div></div>
+                            <div class="bar-col"><div class="bar-fill b" style="height:88%"></div><div class="bar-lbl">Abr</div></div>
+                            <div class="bar-col"><div class="bar-fill c" style="height:95%"></div><div class="bar-lbl">Mai ●</div></div>
+                        </div>
+                    </div>
+                    <div class="db-chart">
+                        <div class="db-chart-lbl">Por Segmento</div>
+                        <div class="donut-row">
+                            <div class="donut"></div>
+                            <div class="donut-legend">
+                                <div class="dl-item"><span class="dl-dot" style="background:#2A6DD9"></span>Industrial 40%</div>
+                                <div class="dl-item"><span class="dl-dot" style="background:#06B6D4"></span>Serviços 25%</div>
+                                <div class="dl-item"><span class="dl-dot" style="background:#10B981"></span>Varejo 18%</div>
+                                <div class="dl-item"><span class="dl-dot" style="background:#F59E0B"></span>Outros 17%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom row -->
+                <div class="db-bottom">
+                    <div class="db-spark">
+                        <div class="db-chart-lbl">Tendência de Crescimento</div>
+                        <svg viewBox="0 0 220 55" style="width:100%;display:block;">
+                            <defs>
+                                <linearGradient id="sg" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#06B6D4;stop-opacity:0.35"/>
+                                    <stop offset="100%" style="stop-color:#06B6D4;stop-opacity:0"/>
+                                </linearGradient>
+                            </defs>
+                            <polygon points="0,55 0,44 36,38 72,30 108,22 144,14 180,7 220,2 220,55" fill="url(#sg)"/>
+                            <polyline points="0,44 36,38 72,30 108,22 144,14 180,7 220,2" fill="none" stroke="#06B6D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="220" cy="2" r="3" fill="#06B6D4"/>
+                        </svg>
+                    </div>
+                    <div class="db-table-wrap">
+                        <div class="db-chart-lbl">Top Produtos</div>
+                        <table class="mini-table">
+                            <tr><td>Produto Alpha</td><td>R$1.4M</td><td class="up">↑14%</td></tr>
+                            <tr><td>Produto Beta</td><td>R$980k</td><td class="up">↑8%</td></tr>
+                            <tr><td>Produto Gamma</td><td>R$620k</td><td class="dn">↓3%</td></tr>
+                            <tr><td>Produto Delta</td><td>R$440k</td><td class="up">↑22%</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div><!-- /.dash -->
+        </div><!-- /.dash-wrap -->
+    </div>
+</section>
+
+<!-- ── TRUST BAR ── -->
+<div class="trust">
+    <div class="trust-inner">
+        <span class="trust-item">Dashboards Power BI</span>
+        <span class="trust-item">Dados integrados em tempo real</span>
+        <span class="trust-item">KPIs estratégicos</span>
+        <span class="trust-item">Treinamento e suporte contínuo</span>
+        <span class="trust-item">Implementação ágil</span>
+    </div>
+</div>
+
+<!-- ══ PROBLEMA ══ -->
+<section class="sec container">
+    <div class="reveal">
+        <div class="sec-tag">O problema</div>
+        <h2 class="sec-h2">Sua empresa nada em dados.<br><em>E morre de sede.</em></h2>
+        <p class="sec-sub">A informação existe — dispersa em planilhas, sistemas separados e relatórios que chegam tarde. O resultado é sempre o mesmo: gestão no escuro, decisões reativas.</p>
+    </div>
+    <div class="prob-grid">
+        <div class="prob-card reveal d1">
+            <div class="prob-icon">📊</div>
+            <div class="prob-title">Dados sem conexão</div>
+            <p class="prob-text">Financeiro num lugar, vendas em outro, operação em planilha. Ninguém consegue ver o negócio inteiro em um só lugar.</p>
+        </div>
+        <div class="prob-card reveal d2">
+            <div class="prob-icon">⏳</div>
+            <div class="prob-title">Relatórios que chegam tarde</div>
+            <p class="prob-text">Quando o relatório fica pronto, a janela de decisão já fechou. Você gerencia o passado enquanto o presente exige ação.</p>
+        </div>
+        <div class="prob-card reveal d3">
+            <div class="prob-icon">🌫️</div>
+            <div class="prob-title">Ninguém sabe o "por quê"</div>
+            <p class="prob-text">As vendas caíram. A margem encolheu. Mas ninguém consegue responder com precisão: onde, quanto e por quê. Só suspeitas.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══ AGITATE ══ -->
+<div class="agitate">
+    <p class="agitate-q reveal">
+        "Enquanto você espera o relatório ficar pronto,<br>seu concorrente já <em>está agindo</em> sobre os mesmos dados."
+    </p>
+    <p class="agitate-sub reveal d2">Velocidade de decisão é vantagem competitiva. E ela começa com informação confiável, visível e em tempo real.</p>
+</div>
+
+<!-- ══ SOLUÇÃO ══ -->
+<section class="sec container">
+    <div class="reveal">
+        <div class="sec-tag">A solução</div>
+        <h2 class="sec-h2">O painel de controle<br><em>do seu negócio</em></h2>
+        <p class="sec-sub">A P1P desenha, constrói e implanta dashboards estratégicos em Power BI — integrados com suas fontes de dados, calibrados para seus indicadores, prontos para usar.</p>
+    </div>
+    <div class="sol-grid">
+        <div class="sol-card reveal d1">
+            <div class="sol-icon">🔗</div>
+            <div class="sol-title">Dados integrados</div>
+            <p class="sol-text">Conectamos todas as suas fontes — ERP, CRM, planilhas, bancos de dados — em um único modelo de dados consistente e atualizado.</p>
+        </div>
+        <div class="sol-card reveal d2">
+            <div class="sol-icon">📈</div>
+            <div class="sol-title">Dashboards sob medida</div>
+            <p class="sol-text">Cada painel é desenhado para os seus indicadores-chave. Nada genérico — visibilidade total das métricas que realmente movem o seu negócio.</p>
+        </div>
+        <div class="sol-card reveal d3">
+            <div class="sol-icon">⚡</div>
+            <div class="sol-title">Decisão em tempo real</div>
+            <p class="sol-text">Atualização automática, alertas de desvio e análise de tendências. Você age antes que o problema se torne crise.</p>
+        </div>
+        <div class="sol-card reveal d1">
+            <div class="sol-icon">🎯</div>
+            <div class="sol-title">KPIs que importam</div>
+            <p class="sol-text">Juntos, mapeamos os indicadores que refletem a saúde real do negócio. Sem ruído, sem métricas de vaidade.</p>
+        </div>
+        <div class="sol-card reveal d2">
+            <div class="sol-icon">🔍</div>
+            <div class="sol-title">Análise de causa-raiz</div>
+            <p class="sol-text">Mais do que mostrar o que aconteceu — revelamos por quê aconteceu. Drill-downs, filtros e comparativos que respondem perguntas difíceis.</p>
+        </div>
+        <div class="sol-card reveal d3">
+            <div class="sol-icon">👥</div>
+            <div class="sol-title">Adoção garantida</div>
+            <p class="sol-text">Treinamos sua equipe, documentamos os painéis e acompanhamos a evolução. O BI só gera valor quando as pessoas usam.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══ COMO FUNCIONA ══ -->
+<section class="sec sec-alt">
+    <div class="container">
+        <div class="reveal" style="text-align:center;margin-bottom:60px;">
+            <div class="sec-tag">Como funciona</div>
+            <h2 class="sec-h2">3 etapas para transformar<br><em>dados em direção</em></h2>
+        </div>
+        <div class="steps">
+            <div class="step reveal d1">
+                <div class="step-num">1</div>
+                <div class="step-title">Mapeamos seus dados</div>
+                <p class="step-text">Auditamos suas fontes, entendemos os fluxos e definimos os indicadores críticos junto com a liderança do negócio.</p>
+            </div>
+            <div class="step reveal d2">
+                <div class="step-num">2</div>
+                <div class="step-title">Construímos os dashboards</div>
+                <p class="step-text">Desenvolvemos os painéis em Power BI com dados integrados, modelo semântico robusto e design que comunica com clareza.</p>
+            </div>
+            <div class="step reveal d3">
+                <div class="step-num">3</div>
+                <div class="step-title">Entregamos e evoluímos</div>
+                <p class="step-text">Implantamos, treinamos a equipe e acompanhamos os primeiros meses. O BI evolui com o negócio — sempre.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ RESULTADOS ══ -->
+<section class="sec container">
+    <div class="reveal" style="text-align:center;">
+        <div class="sec-tag">Resultados</div>
+        <h2 class="sec-h2">O que muda quando você<br><em class="em-cyan">vê o negócio de verdade</em></h2>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-card reveal d1">
+            <div class="stat-val">3×</div>
+            <p class="stat-lbl">Decisões mais rápidas com indicadores disponíveis em tempo real</p>
+        </div>
+        <div class="stat-card reveal d2">
+            <div class="stat-val">80%</div>
+            <p class="stat-lbl">Redução no tempo de geração de relatórios manuais</p>
+        </div>
+        <div class="stat-card reveal d3">
+            <div class="stat-val">100%</div>
+            <p class="stat-lbl">Visibilidade dos indicadores críticos do negócio em um único painel</p>
+        </div>
+        <div class="stat-card reveal d4">
+            <div class="stat-val">100%</div>
+            <p class="stat-lbl">Dashboards construídos sobre dados validados — sem atalhos que comprometem a confiabilidade</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══ OFERTA ══ -->
+<section class="sec sec-alt">
+    <div class="container">
+        <div class="reveal" style="text-align:center;">
+            <div class="sec-tag">O que você recebe</div>
+            <h2 class="sec-h2">BI Estratégico P1P —<br><em>completo e pronto para usar</em></h2>
+        </div>
+        <div class="offer-box reveal">
+            <div class="offer-grid">
+                <div>
+                    <div class="offer-h">Tudo que um BI precisa para gerar valor</div>
+                    <div class="offer-list">
+                        <div class="offer-item"><span class="check">✓</span>Diagnóstico de fontes de dados e indicadores</div>
+                        <div class="offer-item"><span class="check">✓</span>Modelo de dados integrado e documentado</div>
+                        <div class="offer-item"><span class="check">✓</span>Dashboards executivos em Power BI</div>
+                        <div class="offer-item"><span class="check">✓</span>Painéis operacionais por área (vendas, financeiro, operações)</div>
+                        <div class="offer-item"><span class="check">✓</span>Alertas automáticos de desvio de meta</div>
+                        <div class="offer-item"><span class="check">✓</span>Treinamento e capacitação da equipe</div>
+                        <div class="offer-item"><span class="check">✓</span>Documentação técnica e manual do usuário</div>
+                        <div class="offer-item"><span class="check">✓</span>Suporte e evolução contínua</div>
+                    </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:20px;">
+                    <div class="offer-hl">
+                        <div class="offer-hl-tag">🚀 Implementação ágil</div>
+                        <p class="offer-hl-text">Cronograma definido junto com o cliente — o prazo depende da maturidade dos dados, e a P1P estrutura esse processo do início ao fim.</p>
+                    </div>
+                    <div class="offer-hl">
+                        <div class="offer-hl-tag">🎯 Consultoria estratégica inclusa</div>
+                        <p class="offer-hl-text">Não entregamos só tecnologia. <strong>Definimos junto com você quais indicadores importam</strong> — e garantimos que a equipe realmente usa o BI para decidir.</p>
+                    </div>
+                    <div class="offer-hl">
+                        <div class="offer-hl-tag">📊 Power BI certificado</div>
+                        <p class="offer-hl-text">Somos especialistas certificados em Power BI, com experiência em empresas de médio e grande porte em múltiplos setores.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ CONTATO ══ -->
+<section class="sec container" id="contato">
+    <div class="form-inner">
+        <!-- LEFT: info -->
+        <div>
+            <div class="sec-tag">Vamos conversar</div>
+            <h2 class="form-h">Transforme dados em<br>decisões agora.</h2>
+            <p class="form-sub">Agende uma demonstração gratuita. Mostramos como seria o painel de controle do seu negócio — sem compromisso, sem vendedor agressivo.</p>
+
+            <a href="https://wa.me/5521991457813?text=Olá%2C%20vi%20sobre%20o%20BI%20da%20P1P%20e%20gostaria%20de%20agendar%20uma%20demonstração%20de%20dashboard." class="wa-block" target="_blank">
+                <span class="wa-ico">💬</span>
+                <div>
+                    <div class="wa-t">Prefere pelo WhatsApp?</div>
+                    <div class="wa-s">Clique aqui e fale agora com um especialista P1P</div>
+                </div>
+            </a>
+
+            <div class="promise">
+                <div class="promise-item">Demonstração personalizada para o seu negócio</div>
+                <div class="promise-item">Sem compromisso, sem proposta agressiva</div>
+                <div class="promise-item">Resposta em até 24 horas úteis</div>
+                <div class="promise-item">Consultores seniores, não SDRs</div>
+            </div>
+        </div>
+
+        <!-- RIGHT: form -->
+        <div class="form-card reveal">
+            <form action="https://formsubmit.co/contato@p1p.com.br" method="POST">
+                <input type="hidden" name="_subject" value="Nova solicitação — BI P1P">
+                <input type="hidden" name="_next" value="https://p1p.com.br/bi?obrigado=1">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+
+                <div class="form-row">
+                    <div class="field">
+                        <label>Nome *</label>
+                        <input type="text" name="nome" placeholder="Seu nome" required>
+                    </div>
+                    <div class="field">
+                        <label>Empresa *</label>
+                        <input type="text" name="empresa" placeholder="Nome da empresa" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="field">
+                        <label>WhatsApp *</label>
+                        <input type="tel" name="whatsapp" placeholder="(XX) XXXXX-XXXX" required>
+                    </div>
+                    <div class="field">
+                        <label>E-mail *</label>
+                        <input type="email" name="email" placeholder="seu@email.com" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Qual é o maior desafio de dados hoje?</label>
+                    <textarea name="desafio" placeholder="Ex: não tenho visibilidade das margens por produto, relatórios demoram dias..."></textarea>
+                </div>
+                <button type="submit" class="sub-btn">Quero uma demonstração gratuita →</button>
+                <p class="form-note">Seus dados são confidenciais e nunca serão compartilhados.</p>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="foot-logo">
+        <img src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P Priority Partners">
+    </div>
+    <p class="foot-motto">Transformamos dados em conhecimento e conhecimento em ação</p>
+    <p class="foot-copy">© <span id="yr"></span> P1P Priority Partners · Strategic Consulting</p>
+</footer>
+
+<!-- Thank you modal -->
+<div class="modal-overlay" id="modal">
+    <div class="modal-box">
+        <div class="modal-icon">📊</div>
+        <h3 class="modal-h">Solicitação recebida!</h3>
+        <p class="modal-p">Obrigado pelo interesse. Um especialista P1P entrará em contato em até 24 horas úteis para agendar sua demonstração personalizada.</p>
+        <button class="modal-close" onclick="document.getElementById('modal').classList.remove('show')">Fechar</button>
+    </div>
+</div>
+
+<script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    if (new URLSearchParams(window.location.search).get('obrigado') === '1') {
+        document.getElementById('modal').classList.add('show');
+    }
+
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
