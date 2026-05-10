@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>P1P Carousel — Semana 2 BI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #07101C;
+            font-family: 'Inter', sans-serif;
+            padding: 48px 40px;
+            display: flex; flex-direction: column;
+            align-items: center; gap: 28px;
+        }
+        .page-label {
+            color: rgba(255,255,255,0.2); font-size: 10px;
+            font-weight: 600; letter-spacing: 4px;
+            text-transform: uppercase; text-align: center;
+        }
+        #toolbar {
+            display: flex; gap: 12px; align-items: center;
+            background: #0D1929; border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px; padding: 14px 20px; width: 560px;
+        }
+        #toolbar > div { flex: 1; }
+        #toolbar .t { color: #fff; font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+        #toolbar .s { color: rgba(255,255,255,0.35); font-size: 11px; }
+        #dl-btn {
+            background: linear-gradient(135deg, #0891B2, #06B6D4);
+            color: #fff; border: none; border-radius: 5px;
+            padding: 10px 20px; font-size: 11px; font-weight: 700;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            cursor: pointer; white-space: nowrap;
+        }
+
+        /* BASE */
+        .slide {
+            width: 560px; height: 560px;
+            background: #060D18;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            justify-content: center; padding: 70px 52px 48px 52px;
+        }
+        .slide-num { display: none; }
+        .logo { position: absolute; top: 20px; right: 28px; height: 40px; opacity: 0.85; }
+        .accent { width: 32px; height: 3px; background: #06B6D4; border-radius: 2px; margin-bottom: 16px; }
+        .tag { font-size: 17px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #06B6D4; margin-bottom: 10px; }
+        .slide-title { font-size: 38px; font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 14px; letter-spacing: -0.5px; }
+        .slide-body { font-size: 20px; color: rgba(255,255,255,0.55); line-height: 1.7; }
+        .slide-body strong { color: rgba(255,255,255,0.85); }
+        .swipe { position: absolute; bottom: 20px; right: 28px; color: rgba(255,255,255,0.18); font-size: 11px; }
+
+        /* SLIDE 1 */
+        .s1-bg {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 75% 25%, rgba(6,182,212,0.12) 0%, transparent 60%),
+                        radial-gradient(ellipse at 25% 80%, rgba(42,109,217,0.07) 0%, transparent 50%);
+        }
+        .s1-grid {
+            position: absolute; inset: 0;
+            background-image: linear-gradient(rgba(6,182,212,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .s1-hook { font-size: 46px; font-weight: 900; color: #fff; line-height: 1.1; letter-spacing: -1px; margin-bottom: 20px; position: relative; z-index: 1; }
+        .s1-hook em { color: #06B6D4; font-style: normal; }
+        .s1-sub { font-size: 20px; color: rgba(255,255,255,0.4); line-height: 1.6; position: relative; z-index: 1; max-width: 380px; }
+        .bi-badge {
+            position: absolute; bottom: 22px; right: 52px;
+            background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.25);
+            border-radius: 6px; padding: 8px 14px; z-index: 1;
+            font-size: 10px; font-weight: 700; color: #06B6D4;
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        /* SLIDE 2 — 3 problems */
+        .prob-cards { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
+        .prob-card {
+            display: flex; gap: 14px; align-items: center;
+            background: rgba(232,73,73,0.07); border: 1px solid rgba(232,73,73,0.18);
+            border-radius: 8px; padding: 11px 14px;
+        }
+        .prob-icon { font-size: 34px; flex-shrink: 0; }
+        .prob-title { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+        .prob-desc { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.4; }
+
+        /* SLIDE 3 — impact */
+        .impact-grid { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
+        .impact-card {
+            display: flex; gap: 14px; align-items: center;
+            background: rgba(232,73,73,0.05); border: 1px solid rgba(232,73,73,0.18);
+            border-left: 3px solid #E84949;
+            border-radius: 8px; padding: 11px 14px;
+        }
+        .impact-icon { font-size: 32px; flex-shrink: 0; }
+        .impact-label { font-size: 22px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 2px; }
+        .impact-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.4; }
+
+        /* SLIDE 4 — solution */
+        .sol-cards { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
+        .sol-card {
+            display: flex; gap: 14px; align-items: center;
+            background: rgba(6,182,212,0.07); border: 1px solid rgba(6,182,212,0.18);
+            border-radius: 8px; padding: 11px 14px;
+        }
+        .sol-icon { font-size: 32px; flex-shrink: 0; }
+        .sol-title { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+        .sol-desc { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.4; }
+
+        /* SLIDE 5 — methodology */
+        .method-steps { display: flex; flex-direction: column; gap: 0; }
+        .ms-row { display: flex; gap: 16px; align-items: flex-start; }
+        .ms-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+        .ms-num {
+            width: 48px; height: 48px; border-radius: 8px;
+            background: linear-gradient(135deg, #0891B2, #06B6D4);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; font-weight: 800; color: #fff;
+            box-shadow: 0 4px 12px rgba(6,182,212,0.3);
+        }
+        .ms-line { width: 1px; height: 20px; background: linear-gradient(180deg, rgba(6,182,212,0.4), rgba(6,182,212,0.1)); margin: 3px 0; }
+        .ms-content { padding-top: 4px; padding-bottom: 8px; }
+        .ms-title { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+        .ms-desc { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+
+        /* SLIDE 6 — Power BI */
+        .pbi-logo-area {
+            display: flex; align-items: center; gap: 16px;
+            margin-bottom: 20px;
+        }
+        .pbi-logo-box {
+            background: linear-gradient(135deg, #F2C811, #F5A623);
+            border-radius: 8px; padding: 8px 18px;
+            font-size: 22px; font-weight: 900; color: #1a1a1a; letter-spacing: -0.5px;
+        }
+        .plus-sign { font-size: 28px; color: rgba(255,255,255,0.2); font-weight: 300; }
+        .p1p-logo-box {
+            background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.3);
+            border-radius: 8px; padding: 8px 18px;
+            font-size: 22px; font-weight: 800; color: #06B6D4; letter-spacing: 1px;
+        }
+        .feature-list { display: flex; flex-direction: column; gap: 10px; }
+        .feature-item { display: flex; gap: 12px; align-items: flex-start; }
+        .feat-dot { width: 6px; height: 6px; border-radius: 50%; background: #06B6D4; margin-top: 8px; flex-shrink: 0; }
+        .feat-text { font-size: 18px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+        .feat-text strong { color: rgba(255,255,255,0.85); }
+
+        /* SLIDE 7 — results */
+        .result-cards { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
+        .result-card {
+            display: flex; gap: 14px; align-items: center;
+            border-radius: 8px; padding: 11px 14px;
+            background: rgba(6,182,212,0.06); border: 1px solid rgba(6,182,212,0.18);
+        }
+        .result-icon { font-size: 32px; flex-shrink: 0; }
+        .result-title { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+        .result-desc { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.4; }
+
+        /* SLIDE 8 — CTA */
+        .s8 { background: linear-gradient(145deg, #060D18 0%, #0A1F30 60%, #060D18 100%); }
+        .s8-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(6,182,212,0.14) 0%, transparent 55%); }
+        .s8-deco { position: absolute; right: -60px; top: -60px; width: 250px; height: 250px; border: 1px solid rgba(6,182,212,0.1); border-radius: 50%; }
+        .s8-deco2 { position: absolute; right: -110px; top: -110px; width: 380px; height: 380px; border: 1px solid rgba(6,182,212,0.05); border-radius: 50%; }
+        .s8-logo { position: absolute; top: 20px; right: 28px; height: 40px; opacity: 0.85; }
+        .cta-title { font-size: 38px; font-weight: 900; color: #fff; line-height: 1.1; letter-spacing: -1px; margin-bottom: 14px; position: relative; z-index: 1; }
+        .cta-body { font-size: 16px; color: rgba(255,255,255,0.45); line-height: 1.7; margin-bottom: 24px; max-width: 340px; position: relative; z-index: 1; }
+        .cta-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, #0891B2, #06B6D4);
+            color: #fff; font-size: 13px; font-weight: 800;
+            letter-spacing: 2px; text-transform: uppercase;
+            padding: 14px 26px; border-radius: 4px;
+            position: relative; z-index: 1;
+            align-self: flex-end;
+            box-shadow: 0 6px 20px rgba(6,182,212,0.3);
+        }
+        .powered-by {
+            position: absolute; bottom: 24px; right: 28px;
+            font-size: 9px; color: rgba(255,255,255,0.2);
+            font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-label">P1P · Carrossel · Semana 2 · Business Intelligence — KPIs que Importam</div>
+
+<div id="toolbar">
+    <div>
+        <div class="t">Exportar slides para Instagram</div>
+        <div class="s" id="dl-status">Baixa todos os slides como ZIP com PNGs 1080×1080px</div>
+    </div>
+    <button id="dl-btn" onclick="downloadAll()">⬇ Baixar todos</button>
+</div>
+
+<!-- SLIDE 1 — HERO -->
+<div class="slide">
+    <div class="s1-bg"></div><div class="s1-grid"></div>
+    <div class="accent"></div>
+    <div class="s1-hook">O problema não<br>é a falta de dados.<br>É medir o que<br><em>não importa.</em></div>
+    <div class="s1-sub">Dashboards cheios de números não são BI estratégico — são ruído organizado.</div>
+    <div class="bi-badge">Business Intelligence · Power BI</div>
+    <div class="swipe">deslize →</div>
+    <img class="logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+</div>
+
+<!-- SLIDE 2 — O PROBLEMA -->
+<div class="slide">
+    <div class="tag">O problema</div>
+    <div class="accent"></div>
+    <div class="slide-title">Como os KPIs<br>são definidos hoje</div>
+    <div class="prob-cards">
+        <div class="prob-card">
+            <div class="prob-icon">📊</div>
+            <div><div class="prob-title">Métricas de Vaidade</div><div class="prob-desc">Dados que descrevem o passado mas não orientam nenhuma decisão</div></div>
+        </div>
+        <div class="prob-card">
+            <div class="prob-icon">🌊</div>
+            <div><div class="prob-title">Excesso de Indicadores</div><div class="prob-desc">Dezenas de números que ninguém sabe qual priorizar</div></div>
+        </div>
+        <div class="prob-card">
+            <div class="prob-icon">🚫</div>
+            <div><div class="prob-title">KPIs sem Dono</div><div class="prob-desc">Indicadores no dashboard sem responsável, sem meta, sem ação</div></div>
+        </div>
+    </div>
+    <img class="logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+</div>
+
+<!-- SLIDE 3 — O IMPACTO -->
+<div class="slide">
+    <div class="tag">O impacto</div>
+    <div class="accent"></div>
+    <div class="slide-title">O que acontece<br>quando se mede<br>o que não importa</div>
+    <div class="impact-grid">
+        <div class="impact-card">
+            <div class="impact-icon">😶</div>
+            <div>
+                <div class="impact-label">Paralisia Decisória</div>
+                <div class="impact-desc">Dados demais, clareza de menos — reuniões longas, decisões lentas</div>
+            </div>
+        </div>
+        <div class="impact-card">
+            <div class="impact-icon">🎯</div>
+            <div>
+                <div class="impact-label">Foco no Lugar Errado</div>
+                <div class="impact-desc">Esforço concentrado em métricas que não movem o negócio</div>
+            </div>
+        </div>
+        <div class="impact-card">
+            <div class="impact-icon">📉</div>
+            <div>
+                <div class="impact-label">Risco Invisível</div>
+                <div class="impact-desc">Os indicadores certos não monitorados — problemas aparecem tarde</div>
+            </div>
+        </div>
+    </div>
+    <img class="logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+</div>
+
+<!-- SLIDE 4 — A SOLUÇÃO -->
+<div class="slide">
+    <div class="tag">A solução — BI Estratégico</div>
+    <div class="accent"></div>
+    <div class="slide-title">KPIs que realmente<br>movem o negócio</div>
+    <div class="sol-cards">
+        <div class="sol-card">
+            <div class="sol-icon">🎯</div>
+            <div><div class="sol-title">Diagnóstico Estratégico</div><div class="sol-desc">Definimos quais indicadores refletem a saúde real do seu negócio</div></div>
+        </div>
+        <div class="sol-card">
+            <div class="sol-icon">📐</div>
+            <div><div class="sol-title">Modelo de Dados Sólido</div><div class="sol-desc">Cada KPI com fonte, fórmula, meta e responsável definidos</div></div>
+        </div>
+        <div class="sol-card">
+            <div class="sol-icon">⚡</div>
+            <div><div class="sol-title">Monitoramento em Tempo Real</div><div class="sol-desc">Power BI atualizado automaticamente, alertas de desvio de meta</div></div>
+        </div>
+    </div>
+    <img class="logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+</div>
+
+<!-- SLIDE 5 — COMO ATUAMOS -->
+<div class="slide">
+    <div class="tag">Como atuamos</div>
+    <div class="accent"></div>
+    <div class="slide-title" style="font-size:30px;margin-bottom:14px;">3 etapas para KPIs<br>que orientam decisão</div>
+    <div class="method-steps">
+        <div class="ms-row">
+            <div class="ms-left"><div class="ms-num">1</div><div class="ms-line"></div></div>
+            <div class="ms-content">
+                <div class="ms-title">🔍 Diagnóstico de indicadores</div>
+                <div class="ms-desc">Entendemos a estratégia e mapeamos o que precisa ser monitorado</div>
+            </div>
+        </div>
+        <div class="ms-row">
+            <div class="ms-left"><div class="ms-num">2</div><div class="ms-line"></div></div>
+            <div class="ms-content">
+                <div class="ms-title">🏗️ Construção do modelo</div>
+                <div class="ms-desc">Definimos fórmulas, fontes, metas e criamos o dashboard em Power BI</div>
+            </div>
+        </div>
+        <div class="ms-row">
+            <div class="ms-left"><div class="ms-num">3</div></div>
+            <div class="ms-content">
+                <div class="ms-title">📊 Implantação e evolução</div>
+                <div class="ms-desc">Treinamos a equipe e evoluímos os KPIs com o negócio</div>
+            </div>
+        </div>
+    </div>
+    <img class="logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+</div>
+
+<!-- SLIDE 6 — POWER BI -->
+<div class="slide">
+    <div class="tag">Tecnologia por trás</div>
+    <div class="accent"></div>
+    <div class="pbi-logo-area">
+        <div class="p1p-logo-box">P1P</div>
+        <div class="plus-sign">+</div>
+        <div class="pbi-logo-box">Power BI</div>
+    </div>
+    <div class="slide-title" style="font-size:28px;margin-bottom:16px;">O que o Power BI<br>entrega na prática</div>
+    <div class="feature-list">
+        <div class="feature-item"><div class="feat-dot"></div><div class="feat-text"><strong>Atualização automática</strong> — ERP, CRM, planilhas e bancos de dados integrados</div></div>
+        <div class="feature-item"><div class="feat-dot"></div><div class="feat-text"><strong>Drill-down por dimensão</strong> — por produto, região, canal ou período</div></div>
+        <div class="feature-item"><div class="feat-dot"></div><div class="feat-text"><strong>Alertas de desvio</strong> — notificação quando um KPI sai da faixa esperada</div></div>
+        <div class="feature-item"><div class="feat-dot"></div><div class="feat-text"><strong>Acesso de qualquer dispositivo</strong> — dashboard disponível 24h para toda a liderança</div></div>
+    </div>
+    <img class="logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+</div>
+
+<!-- SLIDE 7 — RESULTADOS -->
+<div class="slide">
+    <div class="tag">Resultados práticos</div>
+    <div class="accent"></div>
+    <div class="slide-title">O que muda quando<br>você mede o certo</div>
+    <div class="result-cards">
+        <div class="result-card">
+            <div class="result-icon">🎯</div>
+            <div><div class="result-title">Clareza Decisória</div><div class="result-desc">Cada reunião começa sabendo exatamente o que está acontecendo</div></div>
+        </div>
+        <div class="result-card">
+            <div class="result-icon">⚡</div>
+            <div><div class="result-title">Resposta Mais Rápida</div><div class="result-desc">Desvios identificados antes de virarem problema</div></div>
+        </div>
+        <div class="result-card">
+            <div class="result-icon">🚀</div>
+            <div><div class="result-title">Foco no que Importa</div><div class="result-desc">Equipe alinhada nos indicadores que realmente movem o negócio</div></div>
+        </div>
+    </div>
+    <img class="logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+</div>
+
+<!-- SLIDE 8 — CTA -->
+<div class="slide s8">
+    <div class="s8-bg"></div><div class="s8-deco"></div><div class="s8-deco2"></div>
+    <img class="s8-logo" src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P">
+    <div style="margin-top:0; position:relative; z-index:1; display:flex; flex-direction:column;">
+        <div class="accent"></div>
+        <div class="cta-title">Você sabe qual é<br>o seu KPI mais<br>crítico agora?</div>
+        <div class="cta-body">Se a resposta gera dúvida — vale uma conversa. A P1P ajuda a construir a clareza que falta.</div>
+        <div class="cta-btn">→ &nbsp;Link na bio</div>
+    </div>
+    <div class="powered-by">Business Intelligence · Power BI</div>
+</div>
+
+<script>
+async function captureSlide(slide) {
+    const imgs = slide.querySelectorAll('img');
+    imgs.forEach(img => img.style.visibility = 'hidden');
+    const canvas = await html2canvas(slide, {
+        scale: 1080 / slide.offsetWidth,
+        allowTaint: true, useCORS: false,
+        backgroundColor: '#060D18', logging: false, imageTimeout: 0
+    });
+    imgs.forEach(img => img.style.visibility = '');
+    return canvas;
+}
+async function downloadAll() {
+    const btn = document.getElementById('dl-btn');
+    const status = document.getElementById('dl-status');
+    btn.disabled = true;
+    const slides = document.querySelectorAll('.slide');
+    const zip = new JSZip();
+    for (let i = 0; i < slides.length; i++) {
+        status.textContent = `Exportando slide ${i+1} de ${slides.length}...`;
+        const canvas = await captureSlide(slides[i]);
+        const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
+        zip.file(`p1p-bi-semana2-slide${String(i+1).padStart(2,'0')}.png`, blob);
+    }
+    status.textContent = 'Gerando ZIP...';
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    const link = document.createElement('a');
+    link.download = 'p1p-carrossel-semana2-bi.zip';
+    link.href = URL.createObjectURL(zipBlob);
+    link.click();
+    status.textContent = '✓ Concluído — extraia e publique';
+    btn.disabled = false;
+}
+</script>
+</body>
+</html>
