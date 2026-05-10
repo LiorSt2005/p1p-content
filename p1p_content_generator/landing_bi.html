@@ -355,6 +355,48 @@
         .modal-h { font-size: 28px; font-weight: 900; color: #fff; margin-bottom: 12px; }
         .modal-p { font-size: 16px; color: var(--dim); line-height: 1.65; }
         .modal-close { margin-top: 28px; padding: 12px 28px; background: var(--blue); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
+
+        /* ══ MOBILE ══ */
+        @media (max-width: 768px) {
+            .nav-pill { display: none; }
+            .nav-cta { font-size: 12px; padding: 8px 14px; }
+
+            .hero { padding: 100px 20px 60px; }
+            .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+            .hero-h1 { font-size: 38px; letter-spacing: -1px; }
+            .hero-sub { font-size: 16px; max-width: 100%; }
+            .dash-wrap { display: none; }
+
+            .trust { padding: 18px 20px; }
+            .trust-inner { gap: 14px; justify-content: flex-start; }
+
+            .sec { padding: 60px 20px; }
+            .container { padding: 0 20px; }
+            .sec-h2 { font-size: 30px; }
+            .sec-sub { font-size: 16px; margin-bottom: 36px; }
+
+            .prob-grid { grid-template-columns: 1fr; }
+            .sol-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2,1fr); }
+
+            .steps { grid-template-columns: 1fr; gap: 40px; }
+            .steps::before { display: none; }
+            .step { text-align: left; display: flex; gap: 20px; align-items: flex-start; }
+            .step-num { margin: 0; flex-shrink: 0; }
+
+            .offer-box { padding: 28px 20px; }
+            .offer-grid { grid-template-columns: 1fr; gap: 28px; }
+
+            .form-inner { grid-template-columns: 1fr; gap: 40px; }
+            .form-row { grid-template-columns: 1fr; }
+            .form-h { font-size: 28px; }
+
+            .agitate { padding: 60px 20px; }
+            .agitate-q { font-size: 24px; }
+            .agitate-sub { font-size: 15px; }
+
+            .modal-box { padding: 36px 24px; margin: 0 20px; }
+        }
     </style>
 </head>
 <body>
