@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P1P — Logo Concepts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #04080F;
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+            padding: 60px 40px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            margin-bottom: 32px;
+            padding-left: 4px;
+            border-left: 2px solid rgba(6,182,212,0.4);
+            padding-left: 12px;
+        }
+
+        .concepts-row {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .concept-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .concept-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+        }
+        .concept-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            max-width: 200px;
+            line-height: 1.5;
+        }
+
+        .preview-dark {
+            background: #060D18;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 48px;
+        }
+        .preview-light {
+            background: #f0f4ff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 40px;
+        }
+
+        .sizes-row {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            justify-content: center;
+        }
+
+        /* ════════════════════════════════════
+           CONCEPT A — HALO (faithful to ref)
+        ════════════════════════════════════ */
+        .logo-a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @keyframes halo-pulse {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px #06B6D4) drop-shadow(0 0 24px rgba(6,182,212,0.5)); }
+            50% { opacity: 0.85; filter: drop-shadow(0 0 6px #06B6D4) drop-shadow(0 0 14px rgba(6,182,212,0.3)); }
+        }
+        @keyframes ring-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ════════════════════════════════════
+           CONCEPT B — SIGNAL
+        ════════════════════════════════════ */
+        @keyframes bar-grow {
+            0%, 100% { transform: scaleY(0.6); }
+            50% { transform: scaleY(1); }
+        }
+
+        /* ════════════════════════════════════
+           CONCEPT C — WORDMARK MINIMAL
+        ════════════════════════════════════ */
+        @keyframes line-glow {
+            0%, 100% { box-shadow: 0 0 8px #06B6D4, 0 0 20px rgba(6,182,212,0.4); }
+            50% { box-shadow: 0 0 4px #06B6D4, 0 0 10px rgba(6,182,212,0.2); }
+        }
+
+        /* ════════════════════════════════════
+           CONCEPT D — NEXUS (data node)
+        ════════════════════════════════════ */
+        @keyframes node-pulse {
+            0%, 100% { r: 3; opacity: 1; }
+            50% { r: 4.5; opacity: 0.7; }
+        }
+
+        /* ════════════════════════════════════
+           CONCEPT E — ARC (partial ring)
+        ════════════════════════════════════ */
+        @keyframes arc-dash {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -20; }
+        }
+
+        /* divider */
+        .divider { height: 1px; background: rgba(255,255,255,0.05); margin: 48px 0; }
+
+        .size-tag {
+            font-size: 9px;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.2);
+            text-transform: uppercase;
+            text-align: center;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>P1P — Priority Partners · Logo Concepts 2026</h1>
+
+<!-- ─────────────────────────────────────
+     CONCEPT A — HALO
+───────────────────────────────────── -->
+<div class="section-label">Concept A — Halo · Fiel à referência, elevado</div>
+<div class="concepts-row">
+
+    <div class="concept-card">
+        <div class="concept-label">Dark</div>
+        <div class="preview-dark">
+            <div class="sizes-row">
+
+                <!-- Large -->
+                <div>
+                    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg"
+                         style="animation: halo-pulse 3s ease-in-out infinite; filter: drop-shadow(0 0 12px #06B6D4) drop-shadow(0 0 30px rgba(6,182,212,0.4));">
+                        <!-- outer glow ring -->
+                        <circle cx="60" cy="60" r="55" stroke="url(#haloGrad)" stroke-width="1.5" opacity="0.5"/>
+                        <!-- main ring -->
+                        <circle cx="60" cy="60" r="50" stroke="url(#haloGrad)" stroke-width="2.5"/>
+                        <!-- inner ring -->
+                        <circle cx="60" cy="60" r="44" stroke="url(#haloGrad2)" stroke-width="0.75" opacity="0.4"/>
+                        <!-- P1P text -->
+                        <text x="60" y="70" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif"
+                              font-weight="700" font-size="30" letter-spacing="-1" fill="white">P1P</text>
+                        <defs>
+                            <linearGradient id="haloGrad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#06B6D4"/>
+                                <stop offset="50%" stop-color="#2A6DD9"/>
+                                <stop offset="100%" stop-color="#06B6D4"/>
+                            </linearGradient>
+                            <linearGradient id="haloGrad2" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.5"/>
+                                <stop offset="100%" stop-color="#2A6DD9" stop-opacity="0.2"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="size-tag">120px</div>
+                </div>
+
+                <!-- Medium -->
+                <div>
+                    <svg width="64" height="64" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg"
+                         style="filter: drop-shadow(0 0 6px #06B6D4) drop-shadow(0 0 16px rgba(6,182,212,0.35));">
+                        <circle cx="60" cy="60" r="50" stroke="url(#haloGradB)" stroke-width="2.5"/>
+                        <text x="60" y="70" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif"
+                              font-weight="700" font-size="30" letter-spacing="-1" fill="white">P1P</text>
+                        <defs>
+                            <linearGradient id="haloGradB" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#06B6D4"/>
+                                <stop offset="50%" stop-color="#2A6DD9"/>
+                                <stop offset="100%" stop-color="#06B6D4"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="size-tag">64px</div>
+                </div>
+
+                <!-- Small -->
+                <div>
+                    <svg width="32" height="32" viewBox="0 0 120 120" fill="none">
+                        <circle cx="60" cy="60" r="50" stroke="#06B6D4" stroke-width="3"/>
+                        <text x="60" y="70" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif"
+                              font-weight="700" font-size="30" letter-spacing="-1" fill="white">P1P</text>
+                    </svg>
+                    <div class="size-tag">32px</div>
+                </div>
+
+            </div>
+        </div>
+        <!-- with wordmark -->
+        <div class="preview-dark" style="padding: 28px 36px;">
+            <svg width="220" height="52" viewBox="0 0 220 52" fill="none"
+                 style="filter: drop-shadow(0 0 8px rgba(6,182,212,0.3));">
+                <!-- mark -->
+                <circle cx="26" cy="26" r="22" stroke="url(#wGrad)" stroke-width="2"/>
+                <text x="26" y="32" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif"
+                      font-weight="700" font-size="13" fill="white">P1P</text>
+                <!-- wordmark -->
+                <text x="58" y="22" font-family="Space Grotesk, Inter, sans-serif"
+                      font-weight="700" font-size="16" fill="white" letter-spacing="-0.3">Priority</text>
+                <text x="58" y="40" font-family="Space Grotesk, Inter, sans-serif"
+                      font-weight="400" font-size="12" fill="rgba(255,255,255,0.45)" letter-spacing="2">PARTNERS</text>
+                <defs>
+                    <linearGradient id="wGrad" x1="0" y1="0" x2="52" y2="52" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#06B6D4"/>
+                        <stop offset="100%" stop-color="#2A6DD9"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+    </div>
+
+    <div class="concept-card">
+        <div class="concept-label">Light</div>
+        <div class="preview-light">
+            <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                <circle cx="60" cy="60" r="50" stroke="url(#haloLight)" stroke-width="2.5"/>
+                <text x="60" y="70" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif"
+                      font-weight="700" font-size="30" letter-spacing="-1" fill="#060D18">P1P</text>
+                <defs>
+                    <linearGradient id="haloLight" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#06B6D4"/>
+                        <stop offset="100%" stop-color="#1E4DA1"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        <div class="concept-desc">Circular halo fiel à referência. Glow animado. Funciona em qualquer tamanho.</div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ─────────────────────────────────────
+     CONCEPT B — SIGNAL
+───────────────────────────────────── -->
+<div class="section-label">Concept B — Signal · O "1" como barra de sinal crescente</div>
+<div class="concepts-row">
+
+    <div class="concept-card">
+        <div class="concept-label">Dark</div>
+        <div class="preview-dark">
+            <div class="sizes-row">
+                <div>
+                    <svg width="140" height="80" viewBox="0 0 140 80" fill="none">
+                        <!-- P left -->
+                        <text x="0" y="58" font-family="Space Grotesk, Inter, sans-serif"
+                              font-weight="800" font-size="56" fill="white" letter-spacing="-2">P</text>
+                        <!-- signal bars as "1" -->
+                        <rect x="56" y="44" width="7" height="18" rx="2" fill="#06B6D4" opacity="0.4"
+                              style="transform-origin: 59px 62px; animation: bar-grow 1.8s 0.2s ease-in-out infinite;"/>
+                        <rect x="66" y="34" width="7" height="28" rx="2" fill="#06B6D4" opacity="0.65"
+                              style="transform-origin: 69px 62px; animation: bar-grow 1.8s 0.4s ease-in-out infinite;"/>
+                        <rect x="76" y="20" width="7" height="42" rx="2" fill="#06B6D4"
+                              style="transform-origin: 79px 62px; animation: bar-grow 1.8s 0.6s ease-in-out infinite;"/>
+                        <!-- P right -->
+                        <text x="88" y="58" font-family="Space Grotesk, Inter, sans-serif"
+                              font-weight="800" font-size="56" fill="white" letter-spacing="-2">P</text>
+                    </svg>
+                    <div class="size-tag">Large</div>
+                </div>
+                <div>
+                    <svg width="84" height="48" viewBox="0 0 140 80" fill="none">
+                        <text x="0" y="58" font-family="Space Grotesk, Inter, sans-serif"
+                              font-weight="800" font-size="56" fill="white" letter-spacing="-2">P</text>
+                        <rect x="56" y="44" width="7" height="18" rx="2" fill="#06B6D4" opacity="0.4"/>
+                        <rect x="66" y="34" width="7" height="28" rx="2" fill="#06B6D4" opacity="0.65"/>
+                        <rect x="76" y="20" width="7" height="42" rx="2" fill="#06B6D4"/>
+                        <text x="88" y="58" font-family="Space Grotesk, Inter, sans-serif"
+                              font-weight="800" font-size="56" fill="white" letter-spacing="-2">P</text>
+                    </svg>
+                    <div class="size-tag">Medium</div>
+                </div>
+            </div>
+        </div>
+        <div class="preview-dark" style="padding: 22px 32px;">
+            <svg width="240" height="44" viewBox="0 0 240 44" fill="none">
+                <text x="0" y="36" font-family="Space Grotesk, Inter, sans-serif"
+                      font-weight="800" font-size="36" fill="white" letter-spacing="-1">P</text>
+                <rect x="30" y="22" width="4.5" height="14" rx="1.5" fill="#06B6D4" opacity="0.35"/>
+                <rect x="37" y="16" width="4.5" height="20" rx="1.5" fill="#06B6D4" opacity="0.65"/>
+                <rect x="44" y="8" width="4.5" height="28" rx="1.5" fill="#06B6D4"/>
+                <text x="54" y="36" font-family="Space Grotesk, Inter, sans-serif"
+                      font-weight="800" font-size="36" fill="white" letter-spacing="-1">P</text>
+                <!-- separator -->
+                <line x1="98" y1="8" x2="98" y2="38" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+                <!-- tagline -->
+                <text x="108" y="20" font-family="Inter, sans-serif"
+                      font-weight="700" font-size="11" fill="white" letter-spacing="-0.2">Priority Partners</text>
+                <text x="108" y="36" font-family="Inter, sans-serif"
+                      font-weight="400" font-size="10" fill="rgba(255,255,255,0.4)" letter-spacing="1.5">BI · BPO · STRATEGY</text>
+            </svg>
+        </div>
+    </div>
+
+    <div class="concept-card">
+        <div class="concept-label">Light</div>
+        <div class="preview-light">
+            <svg width="120" height="70" viewBox="0 0 140 80" fill="none">
+                <text x="0" y="58" font-family="Space Grotesk, Inter, sans-serif"
+                      font-weight="800" font-size="56" fill="#060D18" letter-spacing="-2">P</text>
+                <rect x="56" y="44" width="7" height="18" rx="2" fill="#06B6D4" opacity="0.4"/>
+                <rect x="66" y="34" width="7" height="28" rx="2" fill="#0891B2" opacity="0.65"/>
+                <rect x="76" y="20" width="7" height="42" rx="2" fill="#0891B2"/>
+                <text x="88" y="58" font-family="Space Grotesk, Inter, sans-serif"
+                      font-weight="800" font-size="56" fill="#060D18" letter-spacing="-2">P</text>
+            </svg>
+        </div>
+        <div class="concept-desc">O "1" vira 3 barras de sinal crescentes em cyan — BI + dados + crescimento num símbolo.</div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ─────────────────────────────────────
+     CONCEPT C — WORDMARK MINIMAL
+───────────────────────────────────── -->
+<div class="section-label">Concept C — Minimal · Wordmark puro, sofisticado</div>
+<div class="concepts-row">
+
+    <div class="concept-card">
+        <div class="concept-label">Dark</div>
+        <div class="preview-dark">
+            <div class="sizes-row">
+                <div>
+                    <svg width="180" height="52" viewBox="0 0 180 52" fill="none">
+                        <!-- P -->
+                        <text x="0" y="40" font-family="Space Grotesk, Inter, sans-serif"
+                              font-weight="800" font-size="44" fill="white" letter-spacing="-1">P</text>
+                        <!-- glowing line as 1 -->
+                        <rect x="46" y="4" width="3" height="44" rx="1.5"
+                              fill="url(#lineGrad)"
+                              style="filter: drop-shadow(0 0 4px #06B6D4) drop-shadow(0 0 10px rgba(6,182,212,0.5));"/>
+                        <!-- P -->
+                        <text x="58" y="40" font-family="Space Grotesk, Inter, sans-serif"
+                              font-weight="800" font-size="44" fill="white" letter-spacing="-1">P</text>
+                        <!-- dot accent -->
+                        <circle cx="106" cy="8" r="3.5" fill="#06B6D4"
+                                style="filter: drop-shadow(0 0 4px #06B6D4);"/>
+                        <defs>
+                            <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#06B6D4"/>
+                                <stop offset="100%" stop-color="#2A6DD9"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="size-tag">Large</div>
+                </div>
+            </div>
+        </div>
+        <div class="preview-dark" style="padding: 22px 32px;">
+            <svg width="260" height="44" viewBox="0 0 260 44" fill="none">
+                <text x="0" y="34" font-family="Space Grotesk, Inter, sans-serif"
+                      font-weight="800" font-size="36" fill="white">P</text>
+                <rect x="32" y="3" width="2.5" height="36" rx="1.25" fill="url(#lineGrad2)"
+                      style="filter: drop-shadow(0 0 3px #06B6D4);"/>
+                <text x="42" y="34" font-family="Space Grotesk, Inter, sans-serif"
+                      font-weight="800" font-size="36" fill="white">P</text>
+                <circle cx="80" cy="6" r="3" fill="#06B6D4"/>
+                <line x1="94" y1="6" x2="94" y2="38" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                <text x="104" y="20" font-family="Inter, sans-serif"
+                      font-weight="600" font-size="11" fill="rgba(255,255,255,0.7)" letter-spacing="0.2">Priority Partners</text>
+                <text x="104" y="36" font-family="Inter, sans-serif"
+                      font-weight="400" font-size="9.5" fill="rgba(255,255,255,0.35)" letter-spacing="2">CONSULTORIA ESTRATÉGICA</text>
+                <defs>
+                    <linearGradient id="lineGrad2" x1="0" y1="0" x2="0" y2="36" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#06B6D4"/>
+                        <stop offset="100%" stop-color="#2A6DD9"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+    </div>
+
+    <div class="concept-card">
+        <div class="concept-label">Light</div>
+        <div class="preview-light">
+            <svg width="160" height="46" viewBox="0 0 180 52" fill="none">
+                <text x="0" y="40" font-family="Space Grotesk, Inter, sans-serif"
+                      font-weight="800" font-size="44" fill="#060D18">P</text>
+                <rect x="46" y="4" width="3" height="44" rx="1.5" fill="url(#lineGradL)"/>
+                <text x="58" y="40" font-family="Space Grotesk, Inter, sans-serif"
+                      font-weight="800" font-size="44" fill="#060D18">P</text>
+                <circle cx="106" cy="8" r="3.5" fill="#06B6D4"/>
+                <defs>
+                    <linearGradient id="lineGradL" x1="0" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#06B6D4"/>
+                        <stop offset="100%" stop-color="#1E4DA1"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        <div class="concept-desc">Ultra-limpo. O "1" é uma linha de luz com gradiente cyan→azul. Ponto acento no topo. Máxima elegância.</div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ─────────────────────────────────────
+     CONCEPT D — NEXUS (network node)
+───────────────────────────────────── -->
+<div class="section-label">Concept D — Nexus · Marca geométrica + wordmark</div>
+<div class="concepts-row">
+
+    <div class="concept-card">
+        <div class="concept-label">Dark</div>
+        <div class="preview-dark">
+            <div class="sizes-row">
+
+                <!-- mark only -->
+                <div>
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none"
+                         style="filter: drop-shadow(0 0 8px rgba(6,182,212,0.25));">
+                        <!-- hexagon-ish background -->
+                        <polygon points="40,4 72,22 72,58 40,76 8,58 8,22"
+                                 fill="none" stroke="url(#nexGrad)" stroke-width="1.5" opacity="0.7"/>
+                        <polygon points="40,14 62,27 62,53 40,66 18,53 18,27"
+                                 fill="none" stroke="url(#nexGrad)" stroke-width="0.75" opacity="0.3"/>
+                        <!-- P1P text -->
+                        <text x="40" y="47" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif"
+                              font-weight="700" font-size="18" fill="white" letter-spacing="-0.5">P1P</text>
+                        <defs>
+                            <linearGradient id="nexGrad" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#06B6D4"/>
+                                <stop offset="100%" stop-color="#2A6DD9"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="size-tag">Mark</div>
+                </div>
+
+                <!-- with wordmark -->
+                <div>
+                    <svg width="200" height="50" viewBox="0 0 200 50" fill="none">
+                        <polygon points="25,3 46,15 46,37 25,49 4,37 4,15"
+                                 fill="none" stroke="url(#nexGrad2)" stroke-width="1.5"/>
+                        <text x="25" y="31" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif"
+                              font-weight="700" font-size="12" fill="white">P1P</text>
+                        <text x="58" y="20" font-family="Space Grotesk, sans-serif"
+                              font-weight="700" font-size="15" fill="white" letter-spacing="-0.3">Priority Partners</text>
+                        <text x="58" y="37" font-family="Inter, sans-serif"
+                              font-weight="400" font-size="9" fill="rgba(255,255,255,0.4)" letter-spacing="2">CONSULTORIA ESTRATÉGICA</text>
+                        <defs>
+                            <linearGradient id="nexGrad2" x1="0" y1="0" x2="50" y2="50" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#06B6D4"/>
+                                <stop offset="100%" stop-color="#2A6DD9"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="size-tag">Full</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="concept-card">
+        <div class="concept-label">Light</div>
+        <div class="preview-light">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                <polygon points="40,4 72,22 72,58 40,76 8,58 8,22"
+                         fill="none" stroke="url(#nexLight)" stroke-width="1.5" opacity="0.8"/>
+                <text x="40" y="47" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif"
+                      font-weight="700" font-size="18" fill="#060D18">P1P</text>
+                <defs>
+                    <linearGradient id="nexLight" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#06B6D4"/>
+                        <stop offset="100%" stop-color="#1E4DA1"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        <div class="concept-desc">Hexágono — referência a rede, dados e estrutura. Moderno sem ser clichê de tech.</div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ─────────────────────────────────────
+     CONCEPT E — ARC
+───────────────────────────────────── -->
+<div class="section-label">Concept E — Arc · Arco cinético + P1P bold</div>
+<div class="concepts-row">
+
+    <div class="concept-card">
+        <div class="concept-label">Dark</div>
+        <div class="preview-dark">
+            <div class="sizes-row">
+                <div>
+                    <svg width="120" height="120" viewBox="0 0 120 120" fill="none"
+                         style="filter: drop-shadow(0 0 10px rgba(6,182,212,0.3));">
+                        <!-- outer arc (270°) -->
+                        <path d="M 60 8 A 52 52 0 1 1 8.5 82"
+                              stroke="url(#arcGrad)" stroke-width="3" stroke-linecap="round" fill="none"
+                              style="animation: arc-dash 4s linear infinite;"/>
+                        <!-- inner arc -->
+                        <path d="M 60 18 A 42 42 0 1 1 16 84"
+                              stroke="url(#arcGrad)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"/>
+                        <!-- end dot -->
+                        <circle cx="8.5" cy="82" r="4" fill="#06B6D4"
+                                style="filter: drop-shadow(0 0 6px #06B6D4);"/>
+                        <!-- P1P -->
+                        <text x="60" y="70" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif"
+                              font-weight="800" font-size="28" fill="white" letter-spacing="-0.5">P1P</text>
+                        <defs>
+                            <linearGradient id="arcGrad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#06B6D4"/>
+                                <stop offset="60%" stop-color="#2A6DD9"/>
+                                <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.1"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="size-tag">Large</div>
+                </div>
+
+                <div>
+                    <svg width="200" height="50" viewBox="0 0 200 50" fill="none">
+                        <!-- small arc mark -->
+                        <path d="M 25 4 A 21 21 0 1 1 3.5 36" stroke="url(#arcGrad2)" stroke-width="2" stroke-linecap="round" fill="none"/>
+                        <circle cx="3.5" cy="36" r="2.5" fill="#06B6D4"/>
+                        <text x="25" y="31" text-anchor="middle" font-family="Space Grotesk, sans-serif"
+                              font-weight="800" font-size="13" fill="white">P1P</text>
+                        <text x="58" y="21" font-family="Space Grotesk, sans-serif"
+                              font-weight="700" font-size="15" fill="white" letter-spacing="-0.3">Priority Partners</text>
+                        <text x="58" y="37" font-family="Inter, sans-serif"
+                              font-weight="400" font-size="9" fill="rgba(255,255,255,0.4)" letter-spacing="2">CONSULTORIA ESTRATÉGICA</text>
+                        <defs>
+                            <linearGradient id="arcGrad2" x1="0" y1="0" x2="50" y2="50" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#06B6D4"/>
+                                <stop offset="100%" stop-color="#2A6DD9"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="size-tag">Horizontal</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="concept-card">
+        <div class="concept-label">Light</div>
+        <div class="preview-light">
+            <svg width="100" height="100" viewBox="0 0 120 120" fill="none">
+                <path d="M 60 8 A 52 52 0 1 1 8.5 82" stroke="url(#arcLight)" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <circle cx="8.5" cy="82" r="4" fill="#06B6D4"/>
+                <text x="60" y="70" text-anchor="middle" font-family="Space Grotesk, Inter, sans-serif"
+                      font-weight="800" font-size="28" fill="#060D18">P1P</text>
+                <defs>
+                    <linearGradient id="arcLight" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#06B6D4"/>
+                        <stop offset="100%" stop-color="#1E4DA1" stop-opacity="0.2"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        <div class="concept-desc">Arco cinético que "envolve" o P1P — transmite movimento, progresso, precisão.</div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Summary -->
+<div style="max-width:700px;margin:0 auto;text-align:center;padding:40px 0 80px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:24px;">Como escolher</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;">
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px 12px;">
+            <div style="font-size:13px;font-weight:800;color:#06B6D4;margin-bottom:6px;">A — Halo</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);line-height:1.5;">Fiel à referência. Impacto imediato. Reconhecível.</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px 12px;">
+            <div style="font-size:13px;font-weight:800;color:#06B6D4;margin-bottom:6px;">B — Signal</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);line-height:1.5;">Narrativo. O "1" conta uma história de crescimento.</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px 12px;">
+            <div style="font-size:13px;font-weight:800;color:#06B6D4;margin-bottom:6px;">C — Minimal</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);line-height:1.5;">Sofisticado. Funciona muito bem em nav e documentos.</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px 12px;">
+            <div style="font-size:13px;font-weight:800;color:#06B6D4;margin-bottom:6px;">D — Nexus</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);line-height:1.5;">Estruturado. Hexágono remete a rede e dados.</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px 12px;">
+            <div style="font-size:13px;font-weight:800;color:#06B6D4;margin-bottom:6px;">E — Arc</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);line-height:1.5;">Cinético. Transmite movimento, precisão e progresso.</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
