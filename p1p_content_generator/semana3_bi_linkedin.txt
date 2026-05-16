@@ -1,0 +1,17 @@
+A maioria das empresas não tem um problema de BI. Tem um problema de dados.
+
+E enquanto esse problema não for resolvido, nenhuma ferramenta vai ajudar.
+
+O cenário é sempre parecido: a liderança decide investir em Business Intelligence, escolhe o Power BI, contrata alguém para construir os dashboards — e aí começa o problema de verdade. Os dados estão em quatro sistemas diferentes. O ERP exporta em um formato, o CRM em outro. As planilhas foram preenchidas com critérios diferentes ao longo dos anos. Ninguém sabe ao certo qual é o número correto de clientes ativos, porque cada área usa uma definição diferente.
+
+O resultado: um dashboard bonito, mas com dados que ninguém confia. E quando ninguém confia nos dados, ninguém usa o dashboard para decidir.
+
+BI estratégico começa antes da ferramenta. Começa com a pergunta: os dados que temos são suficientemente confiáveis, consistentes e integrados para sustentar uma decisão? Se a resposta for não — e frequentemente é — o primeiro trabalho é estruturar os dados, não construir o painel.
+
+É por isso que quando a P1P inicia um projeto de BI, a primeira etapa é sempre um diagnóstico de fontes de dados. Mapeamos origem, qualidade, consistência e gaps — antes de escrever uma linha de DAX ou criar um visual.
+
+O Power BI é a última milha. Os dados são a estrada inteira.
+
+Se o seu projeto de BI emperrou ou os dashboards não são usados — o problema provavelmente está antes da ferramenta.
+
+#BusinessIntelligence #PowerBI #IntegracaoDeDados #GestãoBaseadaEmDados #DataQuality
