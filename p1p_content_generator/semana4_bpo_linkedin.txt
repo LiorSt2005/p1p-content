@@ -1,0 +1,15 @@
+O fechamento do mês no financeiro não deveria levar mais de 3 dias.
+
+Se no dia 10 do mês seguinte o gestor ainda não sabe o resultado do mês anterior, o problema não é complexidade — é processo.
+
+O fechamento mensal é o termômetro da maturidade financeira de uma empresa. Quando ele demora, é porque os lançamentos foram feitos em bloco no final do mês. Porque conciliações dependem de uma pessoa disponível. Porque os dados precisam ser compilados manualmente antes de qualquer análise.
+
+O resultado: a liderança toma decisões com dados defasados. Quando a reunião de resultado acontece no dia 15, as decisões que importavam no dia 5 já foram tomadas no escuro.
+
+O BPO Financeiro da P1P, operado com a plataforma Nibo, funciona com lançamentos diários. Cada pagamento registrado no ato. Cada conciliação feita antes do fim do dia. Quando o mês fecha, o DRE gerencial está pronto em 24 a 48 horas.
+
+Decisões não deveriam esperar 3 semanas pelo dado que existiu há 30 dias.
+
+Se o seu fechamento mensal demora mais de 5 dias — há espaço para ganho real.
+
+#BPOFinanceiro #FechamentoMensal #GestãoFinanceira #DRE #Nibo

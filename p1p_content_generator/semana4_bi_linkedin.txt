@@ -1,0 +1,15 @@
+A maioria das empresas sabe quanto vendeu. Poucas sabem quanto lucraram — por produto, por cliente, por canal.
+
+É a diferença entre faturamento e rentabilidade. E confundir os dois é um dos erros mais caros que uma empresa de médio porte pode cometer.
+
+O cenário é clássico: o produto mais vendido gera a margem mais baixa. O cliente com maior volume de compras tem o custo de atendimento mais alto. O canal que mais cresce é o que mais consome em desconto e logística. Ninguém sabe disso porque o ERP mostra receita — não margem.
+
+BI estratégico não é só saber o que vendeu. É saber o que valeu a pena vender.
+
+Na P1P, quando iniciamos um projeto de BI com foco em rentabilidade, a primeira entrega não é um dashboard — é uma matriz de contribuição. Cada produto, cada cliente, cada canal com sua margem bruta calculada sobre os dados reais do ERP. Só depois construímos os visuais.
+
+O Power BI entrega a visibilidade. Mas é o modelo de dados que decide se essa visibilidade vai gerar uma decisão ou só confirmar o que a empresa já acredita.
+
+Crescer vendendo o que não dá lucro é pior do que não crescer.
+
+#BusinessIntelligence #PowerBI #Rentabilidade #GestãoEmpresarial #MargemBruta

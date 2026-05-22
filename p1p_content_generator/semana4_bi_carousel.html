@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>P1P Carrossel — Semana 4 BI — Rentabilidade</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #07101C; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 40px; gap: 20px; }
+
+#toolbar { display: flex; align-items: center; gap: 16px; background: #0D1929; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 14px 20px; width: 560px; }
+#toolbar > div { flex: 1; }
+.tb-title { color: #fff; font-size: 11px; font-weight: 700; margin-bottom: 2px; }
+.tb-sub { color: rgba(255,255,255,0.3); font-size: 10px; }
+#dl-btn { background: linear-gradient(135deg, #0891B2, #06B6D4); color: #fff; border: none; border-radius: 5px; padding: 9px 18px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; white-space: nowrap; }
+
+#stage { width: 560px; position: relative; }
+.slide { width: 560px; height: 560px; background: #060D18; position: relative; overflow: hidden; display: none; flex-direction: column; }
+.slide.active { display: flex; }
+
+.bg-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(6,182,212,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.04) 1px, transparent 1px); background-size: 44px 44px; pointer-events: none; }
+.bg-glow { position: absolute; border-radius: 50%; pointer-events: none; }
+.bg-tr { top: -100px; right: -100px; width: 380px; height: 380px; background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%); }
+.bg-bl { bottom: -80px; left: -60px; width: 280px; height: 280px; background: radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 70%); }
+
+.s-inner { flex: 1; display: flex; flex-direction: column; padding: 44px 46px; position: relative; z-index: 1; }
+.logo-corner { position: absolute; top: 20px; right: 22px; z-index: 2; }
+.logo-corner img { height: 28px; opacity: 0.65; }
+.slide-num { position: absolute; bottom: 18px; right: 22px; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,0.15); z-index: 2; }
+.eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: #06B6D4; margin-bottom: 18px; display: block; }
+.accent-bar { width: 36px; height: 3px; background: linear-gradient(90deg, #06B6D4, #67E8F9); border-radius: 2px; margin-bottom: 20px; }
+
+.hook-text { font-size: 48px; font-weight: 900; color: #fff; line-height: 1.08; letter-spacing: -2px; margin-bottom: 28px; }
+.hook-text em { color: #06B6D4; font-style: normal; }
+.hook-sub { font-size: 15px; color: rgba(255,255,255,0.38); line-height: 1.65; }
+
+.stat-hero-wrap { margin-bottom: 20px; }
+.stat-hero-num { font-size: 104px; font-weight: 900; color: #06B6D4; line-height: 1; letter-spacing: -5px; }
+.stat-hero-unit { font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.35); letter-spacing: -0.5px; margin-top: -4px; }
+.stat-hero-context { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 16px; }
+.stat-contrast { font-size: 14px; color: #06B6D4; font-weight: 700; border-left: 3px solid #06B6D4; padding-left: 12px; line-height: 1.5; }
+
+.section-h { font-size: 28px; font-weight: 900; color: #fff; line-height: 1.2; letter-spacing: -0.8px; margin-bottom: 24px; }
+.section-h em { color: #06B6D4; font-style: normal; }
+.bar-list { display: flex; flex-direction: column; gap: 10px; }
+.bar-item { border-left: 3px solid #06B6D4; background: rgba(6,182,212,0.07); border-radius: 0 8px 8px 0; padding: 12px 16px; display: flex; gap: 14px; align-items: flex-start; }
+.bar-item.red { border-left-color: #E84949; background: rgba(232,73,73,0.07); }
+.bar-idx { font-size: 10px; font-weight: 900; letter-spacing: 1px; color: #06B6D4; min-width: 20px; margin-top: 2px; }
+.bar-idx.red { color: #E84949; }
+.bar-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+.bar-desc { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.4; }
+
+.platform-label { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 6px; letter-spacing: -0.5px; }
+.platform-sub { font-size: 12px; color: #06B6D4; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+.feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.feat-item { background: rgba(6,182,212,0.07); border: 1px solid rgba(6,182,212,0.18); border-radius: 10px; padding: 16px; }
+.feat-tag { font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #06B6D4; margin-bottom: 6px; }
+.feat-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.feat-desc { font-size: 11px; color: rgba(255,255,255,0.38); line-height: 1.4; }
+
+.stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; }
+.stat-block { text-align: center; padding: 0 8px; }
+.stat-block + .stat-block { border-left: 1px solid rgba(255,255,255,0.07); }
+.stat-big { font-size: 48px; font-weight: 900; color: #06B6D4; line-height: 1; letter-spacing: -2px; }
+.stat-unit-sm { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.3); }
+.stat-label { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 8px; line-height: 1.4; font-weight: 600; }
+
+.cta-pre { font-size: 13px; color: rgba(255,255,255,0.35); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 16px; }
+.cta-h { font-size: 32px; font-weight: 900; color: #fff; line-height: 1.15; letter-spacing: -1px; margin-bottom: 28px; }
+.cta-h em { color: #06B6D4; font-style: normal; }
+.cta-box { background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.22); border-radius: 12px; padding: 18px 22px; margin-bottom: 22px; }
+.cta-box p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+.cta-url-row { display: flex; align-items: center; gap: 12px; }
+.cta-arrow { font-size: 20px; color: #06B6D4; font-weight: 900; }
+.cta-url { font-size: 20px; font-weight: 900; color: #06B6D4; letter-spacing: 0.5px; }
+
+#nav { display: flex; align-items: center; gap: 10px; }
+.nav-btn { background: #0D1929; border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 6px; padding: 8px 20px; font-size: 12px; font-weight: 700; cursor: pointer; }
+.nav-dots { display: flex; gap: 6px; }
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.15); cursor: pointer; transition: background .2s; }
+.nav-dot.active { background: #06B6D4; }
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <div><div class="tb-title">Carrossel — Semana 4 BI — Rentabilidade por Produto e Cliente</div><div class="tb-sub" id="dl-status">8 slides · 1080×1080px · Instagram + LinkedIn</div></div>
+  <button id="dl-btn" onclick="downloadCarousel()">⬇ Baixar ZIP</button>
+</div>
+
+<div id="stage">
+
+<!-- SLIDE 1: HOOK -->
+<div class="slide active" id="s1">
+  <div class="bg-grid"></div><div class="bg-glow bg-tr"></div><div class="bg-glow bg-bl"></div>
+  <div class="logo-corner"><img src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P"></div>
+  <div class="s-inner" style="justify-content:center;">
+    <span class="eyebrow">Business Intelligence · P1P</span>
+    <div class="hook-text">Você cresce.<br>A margem cai.<br>Alguém deveria<br>ter <em>avisado antes.</em></div>
+    <div class="accent-bar"></div>
+    <p class="hook-sub">Faturamento e rentabilidade não são a mesma coisa.</p>
+  </div>
+  <div class="slide-num">01 / 08</div>
+</div>
+
+<!-- SLIDE 2: STAT -->
+<div class="slide" id="s2">
+  <div class="bg-grid"></div><div class="bg-glow bg-tr"></div>
+  <div class="logo-corner"><img src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P"></div>
+  <div class="s-inner" style="justify-content:center;">
+    <span class="eyebrow">Diagnóstico</span>
+    <div class="stat-hero-wrap">
+      <div class="stat-hero-num">1/3</div>
+    </div>
+    <p class="stat-hero-context">Em média, 1 em cada 3 linhas de produto ou cliente tem margem negativa quando os custos reais são distribuídos corretamente — mas o ERP só mostra receita.</p>
+    <div class="stat-contrast">A maioria das empresas descobre isso tarde demais — ou nunca descobre.</div>
+  </div>
+  <div class="slide-num">02 / 08</div>
+</div>
+
+<!-- SLIDE 3: PROBLEM -->
+<div class="slide" id="s3">
+  <div class="bg-grid"></div><div class="bg-glow bg-tr"></div>
+  <div class="logo-corner"><img src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P"></div>
+  <div class="s-inner" style="justify-content:center;">
+    <span class="eyebrow">O Problema</span>
+    <div class="section-h">O ERP mostra<br>receita. Não<br><em>rentabilidade.</em></div>
+    <div class="bar-list">
+      <div class="bar-item">
+        <div class="bar-idx">01</div>
+        <div><div class="bar-title">Dados de receita sem custo</div><div class="bar-desc">O sistema mostra quanto entrou — não o que sobrou</div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-idx">02</div>
+        <div><div class="bar-title">Sem visão por produto ou cliente</div><div class="bar-desc">A margem é vista no total — nunca por linha de produto ou conta</div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-idx">03</div>
+        <div><div class="bar-title">Definição de margem inconsistente</div><div class="bar-desc">Cada área calcula de um jeito — ninguém sabe qual é o número certo</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">03 / 08</div>
+</div>
+
+<!-- SLIDE 4: IMPACT -->
+<div class="slide" id="s4">
+  <div class="bg-grid"></div><div class="bg-glow bg-tr"></div>
+  <div class="logo-corner"><img src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P"></div>
+  <div class="s-inner" style="justify-content:center;">
+    <span class="eyebrow" style="color:#E84949;">O Impacto</span>
+    <div class="section-h">O que acontece<br>quando se cresce<br><em style="color:#E87070;">sem saber a margem</em></div>
+    <div class="bar-list">
+      <div class="bar-item red">
+        <div class="bar-idx red">01</div>
+        <div><div class="bar-title">Crescer os produtos errados</div><div class="bar-desc">Mais volume nos itens que destroem margem, menos nos que geram lucro</div></div>
+      </div>
+      <div class="bar-item red">
+        <div class="bar-idx red">02</div>
+        <div><div class="bar-title">Clientes que custam mais do que pagam</div><div class="bar-desc">Alto volume, custo de atendimento oculto, resultado líquido negativo</div></div>
+      </div>
+      <div class="bar-item red">
+        <div class="bar-idx red">03</div>
+        <div><div class="bar-title">Decisões de pricing sem base</div><div class="bar-desc">Descontos dados sem saber o piso de margem — frequentemente abaixo dele</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">04 / 08</div>
+</div>
+
+<!-- SLIDE 5: SOLUTION -->
+<div class="slide" id="s5">
+  <div class="bg-grid"></div><div class="bg-glow bg-tr"></div>
+  <div class="logo-corner"><img src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P"></div>
+  <div class="s-inner" style="justify-content:center;">
+    <span class="eyebrow">Como Resolvemos</span>
+    <div class="section-h">O modelo P1P<br>de <em>BI por rentabilidade</em></div>
+    <div class="bar-list">
+      <div class="bar-item">
+        <div class="bar-idx">01</div>
+        <div><div class="bar-title">Modelo de rentabilidade</div><div class="bar-desc">Distribuímos custos reais por produto, cliente e canal a partir do ERP</div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-idx">02</div>
+        <div><div class="bar-title">Matriz de contribuição</div><div class="bar-desc">Cada linha com margem bruta calculada — antes de qualquer dashboard</div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-idx">03</div>
+        <div><div class="bar-title">Dashboard de rentabilidade</div><div class="bar-desc">Visibilidade por produto, cliente, canal e período — no Power BI</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">05 / 08</div>
+</div>
+
+<!-- SLIDE 6: POWER BI -->
+<div class="slide" id="s6">
+  <div class="bg-grid"></div><div class="bg-glow bg-tr"></div>
+  <div class="logo-corner"><img src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P"></div>
+  <div class="s-inner">
+    <span class="eyebrow">Tecnologia</span>
+    <div class="platform-label">P1P + Power BI</div>
+    <div class="platform-sub">Visibilidade de margem por dimensão</div>
+    <div class="feat-grid">
+      <div class="feat-item">
+        <div class="feat-tag">Produto</div>
+        <div class="feat-title">Margem por SKU</div>
+        <div class="feat-desc">Ranking de produtos por rentabilidade real, não por volume</div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-tag">Cliente</div>
+        <div class="feat-title">Custo de atendimento</div>
+        <div class="feat-desc">Margem líquida por conta, incluindo custo de servir</div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-tag">Canal</div>
+        <div class="feat-title">Comparativo de canal</div>
+        <div class="feat-desc">Qual canal vende mais vs. qual canal deixa mais margem</div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-tag">Simulação</div>
+        <div class="feat-title">Pricing com base real</div>
+        <div class="feat-desc">Piso de margem visível antes de qualquer decisão de desconto</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">06 / 08</div>
+</div>
+
+<!-- SLIDE 7: RESULTS -->
+<div class="slide" id="s7">
+  <div class="bg-grid"></div><div class="bg-glow bg-tr"></div>
+  <div class="logo-corner"><img src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P"></div>
+  <div class="s-inner" style="justify-content:center;">
+    <span class="eyebrow">Resultados Práticos</span>
+    <div class="section-h" style="margin-bottom:32px;">O que muda<br>quando você enxerga<br><em>além do faturamento</em></div>
+    <div class="stats-row">
+      <div class="stat-block">
+        <div class="stat-big" style="font-size:34px;letter-spacing:-1px;">Mix</div>
+        <div class="stat-unit-sm">otimizado</div>
+        <div class="stat-label">produtos certos<br>no centro da estratégia</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-big" style="font-size:34px;letter-spacing:-1px;">Cortes</div>
+        <div class="stat-unit-sm">cirúrgicos</div>
+        <div class="stat-label">clientes e canais<br>com base em dados</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-big" style="font-size:34px;letter-spacing:-1px;">Margem</div>
+        <div class="stat-unit-sm">crescendo</div>
+        <div class="stat-label">mesmo sem<br>crescer volume</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">07 / 08</div>
+</div>
+
+<!-- SLIDE 8: CTA -->
+<div class="slide" id="s8">
+  <div class="bg-grid"></div><div class="bg-glow bg-tr"></div><div class="bg-glow bg-bl"></div>
+  <div class="logo-corner"><img src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P"></div>
+  <div class="s-inner" style="justify-content:center;">
+    <div class="cta-pre">Uma pergunta</div>
+    <div class="cta-h">Você sabe qual<br>produto realmente<br><em>vale a pena vender?</em></div>
+    <div class="cta-box"><p>Se a resposta depende de um cálculo manual em planilha — existe uma forma melhor. Converse com um especialista P1P sem compromisso.</p></div>
+    <div class="cta-url-row">
+      <div class="cta-arrow">→</div>
+      <div class="cta-url">p1p.com.br</div>
+    </div>
+  </div>
+  <div class="slide-num">08 / 08</div>
+</div>
+
+</div><!-- /stage -->
+
+<div id="nav">
+  <button class="nav-btn" onclick="changeSlide(-1)">←</button>
+  <div class="nav-dots" id="dots"></div>
+  <button class="nav-btn" onclick="changeSlide(1)">→</button>
+</div>
+
+<script>
+const total = 8; let cur = 1;
+const dotsEl = document.getElementById('dots');
+for (let i = 1; i <= total; i++) {
+  const d = document.createElement('div'); d.className = 'nav-dot' + (i===1?' active':''); d.onclick = ()=>goTo(i); dotsEl.appendChild(d);
+}
+function goTo(n) {
+  document.getElementById('s'+cur).classList.remove('active');
+  dotsEl.children[cur-1].classList.remove('active');
+  cur = ((n-1+total)%total)+1;
+  document.getElementById('s'+cur).classList.add('active');
+  dotsEl.children[cur-1].classList.add('active');
+}
+function changeSlide(d) { goTo(cur+d); }
+
+async function downloadCarousel() {
+  const btn = document.getElementById('dl-btn'), status = document.getElementById('dl-status');
+  btn.disabled = true; status.textContent = 'Gerando slides...';
+  const zip = new JSZip(); const folder = zip.folder('semana4-bi-rentabilidade');
+  for (let i = 1; i <= total; i++) {
+    const slide = document.getElementById('s'+i);
+    const wasActive = slide.classList.contains('active');
+    slide.classList.add('active');
+    const imgs = slide.querySelectorAll('img'); imgs.forEach(img => img.style.visibility='hidden');
+    const canvas = await html2canvas(slide, { scale: 1080/560, allowTaint:true, useCORS:false, backgroundColor:'#060D18', logging:false });
+    imgs.forEach(img => img.style.visibility='');
+    if (!wasActive) slide.classList.remove('active');
+    const data = canvas.toDataURL('image/png').split(',')[1];
+    folder.file('slide-'+String(i).padStart(2,'0')+'.png', data, {base64:true});
+    status.textContent = `Gerando slide ${i}/${total}...`;
+  }
+  const blob = await zip.generateAsync({type:'blob'});
+  const link = document.createElement('a'); link.download='semana4-bi-rentabilidade.zip'; link.href=URL.createObjectURL(blob); link.click();
+  status.textContent = '✓ ZIP baixado — 8 slides prontos'; btn.disabled = false;
+}
+</script>
+</body>
+</html>
