@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>P1P Infográfico IG — Semana 5 BPO — AP/AR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #07101C; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 40px; gap: 20px; }
+        #toolbar { display: flex; align-items: center; gap: 16px; background: #0D1929; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 14px 20px; width: 560px; }
+        #toolbar > div { flex: 1; }
+        .tb-title { color: #fff; font-size: 11px; font-weight: 700; margin-bottom: 2px; }
+        .tb-sub { color: rgba(255,255,255,0.3); font-size: 10px; }
+        #dl-btn { background: linear-gradient(135deg, #1E4DA1, #2A6DD9); color: #fff; border: none; border-radius: 5px; padding: 9px 18px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; white-space: nowrap; }
+        #card { width: 560px; height: 560px; background: #09111E; position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 36px 38px 28px; }
+        .bg-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(42,109,217,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(42,109,217,0.04) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+        .bg-glow-tr { position: absolute; top: -80px; right: -80px; width: 320px; height: 320px; background: radial-gradient(circle, rgba(42,109,217,0.1) 0%, transparent 70%); pointer-events: none; }
+        .bg-glow-bl { position: absolute; bottom: -60px; left: -40px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(42,109,217,0.06) 0%, transparent 70%); pointer-events: none; }
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; position: relative; z-index: 1; }
+        .logo-wrap img { height: 34px; opacity: 0.85; }
+        .header-tag { font-size: 9px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: #2A6DD9; }
+        .headline-section { position: relative; z-index: 1; margin-bottom: 16px; }
+        .headline { font-size: 28px; font-weight: 900; color: #fff; line-height: 1.1; letter-spacing: -1px; margin-bottom: 10px; }
+        .headline em { color: #5B8DEF; font-style: normal; }
+        .accent-bar { width: 32px; height: 3px; background: linear-gradient(90deg, #2A6DD9, #5B8DEF); border-radius: 2px; margin-bottom: 10px; }
+        .sub-text { font-size: 12px; color: rgba(255,255,255,0.38); line-height: 1.55; }
+        .divider { height: 1px; background: rgba(255,255,255,0.06); margin-bottom: 14px; position: relative; z-index: 1; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1; position: relative; z-index: 1; margin-bottom: 14px; }
+        .col-title { font-size: 9px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+        .col-title.prob { color: rgba(42,109,217,0.8); }
+        .col-title.sol { color: #5B8DEF; }
+        .item-list { display: flex; flex-direction: column; gap: 6px; }
+        .item { padding: 8px 10px; border-radius: 0 6px 6px 0; display: flex; gap: 8px; align-items: flex-start; }
+        .item.prob { background: rgba(42,109,217,0.07); border-left: 2px solid rgba(42,109,217,0.45); }
+        .item.sol { background: rgba(42,109,217,0.1); border-left: 2px solid rgba(91,141,239,0.6); }
+        .item-num { font-size: 9px; font-weight: 900; letter-spacing: 1px; min-width: 14px; margin-top: 1px; }
+        .item-num.blue { color: #2A6DD9; }
+        .item-num.light { color: #5B8DEF; }
+        .item-title { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 2px; line-height: 1.2; }
+        .item-desc { font-size: 10px; color: rgba(255,255,255,0.38); line-height: 1.35; }
+        .cta-strip { background: linear-gradient(135deg, rgba(30,77,161,0.25), rgba(42,109,217,0.15)); border: 1px solid rgba(42,109,217,0.25); border-radius: 7px; padding: 9px 14px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1; }
+        .cta-text { font-size: 12px; font-weight: 700; color: #fff; line-height: 1.35; }
+        .cta-text span { font-size: 10px; color: rgba(255,255,255,0.38); font-weight: 400; display: block; margin-top: 1px; }
+        .cta-tag { background: #2A6DD9; color: #fff; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 11px; border-radius: 4px; white-space: nowrap; }
+    </style>
+</head>
+<body>
+<div id="toolbar">
+    <div><div class="tb-title">Infográfico Instagram — Semana 5 BPO — Contas a Pagar e Receber</div><div class="tb-sub" id="dl-status">1080×1080px — Instagram</div></div>
+    <button id="dl-btn" onclick="downloadInfographic()">⬇ Baixar PNG</button>
+</div>
+<div id="card">
+    <div class="bg-grid"></div><div class="bg-glow-tr"></div><div class="bg-glow-bl"></div>
+    <div class="header">
+        <div class="logo-wrap"><img src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P"></div>
+        <div class="header-tag">BPO Financeiro · P1P</div>
+    </div>
+    <div class="headline-section">
+        <div class="headline">Você sabe o que vai<br>entrar e sair nos<br><em>próximos 30 dias?</em></div>
+        <div class="accent-bar"></div>
+        <div class="sub-text">Reagir ao vencimento não é gestão de caixa. É sobrevivência.</div>
+    </div>
+    <div class="divider"></div>
+    <div class="content-grid">
+        <div>
+            <div class="col-title prob">O Problema</div>
+            <div class="item-list">
+                <div class="item prob"><div class="item-num blue">01</div><div><div class="item-title">Pagamentos reativos</div><div class="item-desc">Boletos pagos no vencimento, sem planejamento prévio</div></div></div>
+                <div class="item prob"><div class="item-num blue">02</div><div><div class="item-title">Cobrança manual</div><div class="item-desc">Sem régua automática — alguém precisa ligar</div></div></div>
+                <div class="item prob"><div class="item-num blue">03</div><div><div class="item-title">Sem projeção de caixa</div><div class="item-desc">A empresa sabe o saldo hoje — não daqui a 30 dias</div></div></div>
+            </div>
+        </div>
+        <div>
+            <div class="col-title sol">A Solução P1P</div>
+            <div class="item-list">
+                <div class="item sol"><div class="item-num light">01</div><div><div class="item-title">AP com alçada</div><div class="item-desc">Cada pagamento aprovado antes do vencimento</div></div></div>
+                <div class="item sol"><div class="item-num light">02</div><div><div class="item-title">AR automático</div><div class="item-desc">Régua de cobrança configurada no Nibo</div></div></div>
+                <div class="item sol"><div class="item-num light">03</div><div><div class="item-title">Previsão contínua</div><div class="item-desc">Projeção de 30 dias atualizada diariamente</div></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="cta-strip">
+        <div class="cta-text">Você sabe o que vai entrar e sair nos próximos 30 dias?<span>Converse com um especialista P1P — sem compromisso</span></div>
+        <div class="cta-tag">→ p1p.com.br</div>
+    </div>
+</div>
+<script>
+async function downloadInfographic() {
+    const btn=document.getElementById('dl-btn'),status=document.getElementById('dl-status');
+    btn.disabled=true;status.textContent='Gerando PNG...';
+    const card=document.getElementById('card');const imgs=card.querySelectorAll('img');
+    imgs.forEach(img=>img.style.visibility='hidden');
+    const canvas=await html2canvas(card,{scale:1080/560,allowTaint:true,useCORS:false,backgroundColor:'#09111E',logging:false});
+    imgs.forEach(img=>img.style.visibility='');
+    const link=document.createElement('a');link.download='p1p-infografico-semana5-bpo-ig.png';
+    link.href=canvas.toDataURL('image/png');link.click();
+    status.textContent='✓ PNG 1080×1080 baixado';btn.disabled=false;
+}
+</script>
+</body>
+</html>

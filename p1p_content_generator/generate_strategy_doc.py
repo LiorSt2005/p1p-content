@@ -381,9 +381,75 @@ add_callout('BPO Financeiro + BI Estratégico para médias empresas 🇧🇷\nPa
 add_divider()
 
 # ══════════════════════════════════════════════════════════════════════════════
-# 6. BOOSTING — LINKEDIN
+# 6. INVESTMENT DECISION FRAMEWORK
 # ══════════════════════════════════════════════════════════════════════════════
-add_h1('  6. Impulsionamento — LinkedIn Campaign Manager')
+add_h1('  6. Framework de Decisão de Investimento — Quanto, Quando e em Qual Post')
+doc.add_paragraph()
+
+add_callout('Regra de ouro: nunca impulsione um post morto. O dinheiro amplifica o que já funciona — não ressuscita o que não funcionou organicamente.')
+doc.add_paragraph()
+
+add_h3('QUAL post impulsionar — Critério de elegibilidade')
+add_body('Avalie o post nas primeiras 2 horas após publicação:')
+add_table(
+    ['Taxa de engajamento (2h)', 'Decisão', 'Ação'],
+    [
+        ['Acima de 5%',    'Boost imediato',     'Impulsione nas próximas 6h — está quente'],
+        ['Entre 3% e 5%', 'Boost com critério',  'Aguarde 24h; impulsione se ainda crescer'],
+        ['Abaixo de 3%',  'Não impulsionar',     'Reutilize com nova legenda na semana seguinte'],
+    ]
+)
+
+add_h3('QUANDO impulsionar — Timing por plataforma')
+add_table(
+    ['Plataforma', 'Janela ideal', 'Por quê'],
+    [
+        ['LinkedIn',  'T+24h a T+48h após publicação', 'Velocidade orgânica passa; paid estende sem concorrer'],
+        ['Instagram', 'T+2h a T+6h após publicação',   'Algoritmo IG decai rápido — entrar cedo maximiza ROI'],
+        ['Ambas',     'Nunca após T+72h',               'Memória do algoritmo se perde — custo sobe, resultado cai'],
+    ]
+)
+
+add_h3('QUANTO investir — Por tipo de conteúdo')
+add_table(
+    ['Tipo de conteúdo', 'Plataforma', 'R$/dia', 'Duração', 'Total', 'Objetivo'],
+    [
+        ['Carrossel',       'Instagram', 'R$40', '5 dias', 'R$200', 'Alcance + retargeting'],
+        ['Infográfico',     'LinkedIn',  'R$40', '7 dias', 'R$280', 'Lead Gen Form direto'],
+        ['Texto longo',     'LinkedIn',  'R$30', '5 dias', 'R$150', 'Tráfego para perfil'],
+        ['Infográfico IG',  'Instagram', 'R$20', '5 dias', 'R$100', 'Awareness + seguidores'],
+    ]
+)
+
+add_h3('Calendário de investimento mensal — R$500')
+add_table(
+    ['Semana', 'O que impulsionar', 'Plataforma', 'Valor'],
+    [
+        ['Semana 1', 'Melhor post orgânico da semana anterior',      'LinkedIn',            'R$150'],
+        ['Semana 2', 'Carrossel (se engajamento ≥ 3%)',              'Instagram',           'R$200'],
+        ['Semana 3', 'Infográfico (se engajamento ≥ 3%)',            'LinkedIn',            'R$150'],
+        ['Semana 4', 'Retargeting — quem interagiu com o carrossel', 'Instagram / LinkedIn', 'R$0 — audiência já paga'],
+    ]
+)
+add_callout('Se nenhum post atingir o critério de elegibilidade em uma semana, não gaste o orçamento. Guarde para dobrar na semana seguinte em um post forte.')
+
+add_h3('Prioridade de conteúdo para investimento pago')
+add_body('Nem todo conteúdo tem o mesmo retorno. Ordem de prioridade:')
+inv_items = [
+    ('1º — Carrossel BPO (Instagram)', ' → maior tempo de permanência → menor CPM → melhor pool de retargeting'),
+    ('2º — Infográfico LinkedIn (Lead Gen Form)', ' → maior intenção → custo por lead mais controlado'),
+    ('3º — Carrossel BI (Instagram)', ' → aquece audiência técnica — CTOs, gestores de TI'),
+    ('4º — Texto longo LinkedIn', ' → menor prioridade para paid; funciona melhor orgânico'),
+]
+for bold, rest in inv_items:
+    add_bullet(rest, bold_prefix=bold)
+
+add_divider()
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 7. BOOSTING — LINKEDIN
+# ══════════════════════════════════════════════════════════════════════════════
+add_h1('  7. Impulsionamento — LinkedIn Campaign Manager')
 doc.add_paragraph()
 
 add_callout('O que impulsionar: apenas posts que já performaram bem organicamente (100+ impressões, 5+ reações). Nunca impulsione um post morto.')
@@ -429,9 +495,9 @@ add_body('Carrosséis superam imagens únicas para lead gen porque o tempo de pe
 add_divider()
 
 # ══════════════════════════════════════════════════════════════════════════════
-# 7. BOOSTING — INSTAGRAM / META
+# 8. BOOSTING — INSTAGRAM / META
 # ══════════════════════════════════════════════════════════════════════════════
-add_h1('  7. Impulsionamento — Meta Ads Manager (Instagram)')
+add_h1('  8. Impulsionamento — Meta Ads Manager (Instagram)')
 doc.add_paragraph()
 
 add_table(
@@ -450,7 +516,7 @@ add_divider()
 # ══════════════════════════════════════════════════════════════════════════════
 # 8. AMPLIFICATION
 # ══════════════════════════════════════════════════════════════════════════════
-add_h1('  8. Amplificação — Além das Publicações')
+add_h1('  9. Amplificação — Além das Publicações')
 doc.add_paragraph()
 
 add_h3('WhatsApp Business')
@@ -471,7 +537,7 @@ add_divider()
 # ══════════════════════════════════════════════════════════════════════════════
 # 9. METRICS
 # ══════════════════════════════════════════════════════════════════════════════
-add_h1('  9. Métricas para Acompanhar (Revisão Mensal)')
+add_h1('  10. Métricas para Acompanhar (Revisão Mensal)')
 doc.add_paragraph()
 
 add_body('Acompanhe pelo LinkedIn Analytics — verifique mensalmente, não diariamente:')
@@ -494,7 +560,7 @@ add_divider()
 # ══════════════════════════════════════════════════════════════════════════════
 # 10. BUDGET SUMMARY
 # ══════════════════════════════════════════════════════════════════════════════
-add_h1('  10. Resumo de Orçamento Mensal')
+add_h1('  11. Resumo de Orçamento Mensal')
 doc.add_paragraph()
 
 add_table(
@@ -513,7 +579,7 @@ add_divider()
 # ══════════════════════════════════════════════════════════════════════════════
 # 11. MONTHLY RHYTHM
 # ══════════════════════════════════════════════════════════════════════════════
-add_h1('  11. Ritmo Mensal de Conteúdo')
+add_h1('  12. Ritmo Mensal de Conteúdo')
 doc.add_paragraph()
 
 add_table(
@@ -531,7 +597,7 @@ add_divider()
 # ══════════════════════════════════════════════════════════════════════════════
 # 12. ACTION ITEMS
 # ══════════════════════════════════════════════════════════════════════════════
-add_h1('  12. O que Fazer Agora — Por Prioridade')
+add_h1('  13. O que Fazer Agora — Por Prioridade')
 doc.add_paragraph()
 
 items = [

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>P1P Infográfico IG — Semana 5 BI — BI para o Comercial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #07101C; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 40px; gap: 20px; }
+        #toolbar { display: flex; align-items: center; gap: 16px; background: #0D1929; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 14px 20px; width: 560px; }
+        #toolbar > div { flex: 1; }
+        .tb-title { color: #fff; font-size: 11px; font-weight: 700; margin-bottom: 2px; }
+        .tb-sub { color: rgba(255,255,255,0.3); font-size: 10px; }
+        #dl-btn { background: linear-gradient(135deg, #0891B2, #06B6D4); color: #fff; border: none; border-radius: 5px; padding: 9px 18px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; white-space: nowrap; }
+        #card { width: 560px; height: 560px; background: #060D18; position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 36px 38px 28px; }
+        .bg-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(6,182,212,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.04) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+        .bg-glow-tr { position: absolute; top: -80px; right: -80px; width: 320px; height: 320px; background: radial-gradient(circle, rgba(6,182,212,0.1) 0%, transparent 70%); pointer-events: none; }
+        .bg-glow-bl { position: absolute; bottom: -60px; left: -40px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 70%); pointer-events: none; }
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; position: relative; z-index: 1; }
+        .logo-wrap img { height: 34px; opacity: 0.85; }
+        .header-tag { font-size: 9px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: #06B6D4; }
+        .headline-section { position: relative; z-index: 1; margin-bottom: 16px; }
+        .headline { font-size: 27px; font-weight: 900; color: #fff; line-height: 1.1; letter-spacing: -1px; margin-bottom: 10px; }
+        .headline em { color: #06B6D4; font-style: normal; }
+        .accent-bar { width: 32px; height: 3px; background: linear-gradient(90deg, #06B6D4, #67E8F9); border-radius: 2px; margin-bottom: 10px; }
+        .sub-text { font-size: 12px; color: rgba(255,255,255,0.38); line-height: 1.55; }
+        .divider { height: 1px; background: rgba(255,255,255,0.06); margin-bottom: 14px; position: relative; z-index: 1; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1; position: relative; z-index: 1; margin-bottom: 14px; }
+        .col-title { font-size: 9px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+        .col-title.prob { color: rgba(232,73,73,0.8); }
+        .col-title.sol { color: #06B6D4; }
+        .item-list { display: flex; flex-direction: column; gap: 6px; }
+        .item { padding: 8px 10px; border-radius: 0 6px 6px 0; display: flex; gap: 8px; align-items: flex-start; }
+        .item.prob { background: rgba(232,73,73,0.07); border-left: 2px solid rgba(232,73,73,0.45); }
+        .item.sol { background: rgba(6,182,212,0.07); border-left: 2px solid rgba(6,182,212,0.45); }
+        .item-num { font-size: 9px; font-weight: 900; letter-spacing: 1px; min-width: 14px; margin-top: 1px; }
+        .item-num.red { color: #E84949; }
+        .item-num.cyan { color: #06B6D4; }
+        .item-title { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 2px; line-height: 1.2; }
+        .item-desc { font-size: 10px; color: rgba(255,255,255,0.38); line-height: 1.35; }
+        .cta-strip { background: linear-gradient(135deg, rgba(8,145,178,0.2), rgba(6,182,212,0.12)); border: 1px solid rgba(6,182,212,0.22); border-radius: 7px; padding: 9px 14px; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1; }
+        .cta-text { font-size: 12px; font-weight: 700; color: #fff; line-height: 1.35; }
+        .cta-text span { font-size: 10px; color: rgba(255,255,255,0.38); font-weight: 400; display: block; margin-top: 1px; }
+        .cta-tag { background: #06B6D4; color: #fff; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 11px; border-radius: 4px; white-space: nowrap; }
+    </style>
+</head>
+<body>
+<div id="toolbar">
+    <div><div class="tb-title">Infográfico Instagram — Semana 5 BI — BI para o Comercial</div><div class="tb-sub" id="dl-status">1080×1080px — Instagram</div></div>
+    <button id="dl-btn" onclick="downloadInfographic()">⬇ Baixar PNG</button>
+</div>
+<div id="card">
+    <div class="bg-grid"></div><div class="bg-glow-tr"></div><div class="bg-glow-bl"></div>
+    <div class="header">
+        <div class="logo-wrap"><img src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P"></div>
+        <div class="header-tag">Business Intelligence · P1P</div>
+    </div>
+    <div class="headline-section">
+        <div class="headline">Qual vendedor está<br>crescendo margem —<br>ou só crescendo <em>volume?</em></div>
+        <div class="accent-bar"></div>
+        <div class="sub-text">Sem BI, o gestor incentiva o comportamento errado sem perceber.</div>
+    </div>
+    <div class="divider"></div>
+    <div class="content-grid">
+        <div>
+            <div class="col-title prob">O Problema</div>
+            <div class="item-list">
+                <div class="item prob"><div class="item-num red">01</div><div><div class="item-title">Meta só de receita</div><div class="item-desc">Margem por vendedor nunca é medida</div></div></div>
+                <div class="item prob"><div class="item-num red">02</div><div><div class="item-title">Desconto sem piso</div><div class="item-desc">Abaixo da margem mínima — ninguém sabe</div></div></div>
+                <div class="item prob"><div class="item-num red">03</div><div><div class="item-title">Mix de produto errado</div><div class="item-desc">Esforço nos itens que vendem, não nos que lucram</div></div></div>
+            </div>
+        </div>
+        <div>
+            <div class="col-title sol">A Solução P1P</div>
+            <div class="item-list">
+                <div class="item sol"><div class="item-num cyan">01</div><div><div class="item-title">Margem por vendedor</div><div class="item-desc">Receita, desconto e custo cruzados no Power BI</div></div></div>
+                <div class="item sol"><div class="item-num cyan">02</div><div><div class="item-title">Pipeline com qualidade</div><div class="item-desc">Probabilidade real por fase e responsável</div></div></div>
+                <div class="item sol"><div class="item-num cyan">03</div><div><div class="item-title">CAC por canal</div><div class="item-desc">Qual origem traz o cliente mais lucrativo</div></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="cta-strip">
+        <div class="cta-text">Você sabe qual vendedor cresce margem — ou só volume?<span>Converse com um especialista P1P — sem compromisso</span></div>
+        <div class="cta-tag">→ p1p.com.br</div>
+    </div>
+</div>
+<script>
+async function downloadInfographic() {
+    const btn=document.getElementById('dl-btn'),status=document.getElementById('dl-status');
+    btn.disabled=true;status.textContent='Gerando PNG...';
+    const card=document.getElementById('card');const imgs=card.querySelectorAll('img');
+    imgs.forEach(img=>img.style.visibility='hidden');
+    const canvas=await html2canvas(card,{scale:1080/560,allowTaint:true,useCORS:false,backgroundColor:'#060D18',logging:false});
+    imgs.forEach(img=>img.style.visibility='');
+    const link=document.createElement('a');link.download='p1p-infografico-semana5-bi-ig.png';
+    link.href=canvas.toDataURL('image/png');link.click();
+    status.textContent='✓ PNG 1080×1080 baixado';btn.disabled=false;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+Você sabe qual vendedor está crescendo margem — ou só crescendo volume?
+
+São perguntas diferentes. E a resposta para as duas raramente é a mesma pessoa.
+
+O cenário mais comum em empresas de médio porte: o time comercial tem meta de receita. Bate a meta, ganha comissão. O problema é que receita e rentabilidade não andam juntas. Um vendedor pode bater 120% da meta fechando negócios com desconto excessivo, em clientes com alto custo de atendimento, em produtos de baixa margem. No papel, é o melhor do time. Na margem, é o que mais destrói valor.
+
+Sem visibilidade do comercial, a gestão incentiva o comportamento errado.
+
+BI para o time comercial não é um dashboard bonito de funil. É a capacidade de cruzar pipeline, receita, margem e custo de aquisição em uma visão única — por vendedor, por produto, por região, por canal. Quando esse cruzamento existe, o gestor comercial deixa de gerir atividade e passa a gerir resultado.
+
+Na P1P, quando construímos um projeto de BI para o comercial, a primeira pergunta não é "que gráfico você quer?" É: "o que precisa mudar no comportamento do time para a margem crescer?" O dashboard é consequência dessa resposta — não o ponto de partida.
+
+Crescimento de receita sem crescimento de margem não é crescimento. É ilusão de escala.
+
+#BusinessIntelligence #PowerBI #BI #VendasB2B #GestãoComercial #MargemBruta #Rentabilidade

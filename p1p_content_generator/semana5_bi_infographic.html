@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>P1P Infográfico — Semana 5 BI — BI para o Comercial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #07101C; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 40px; gap: 20px; }
+        #toolbar { display: flex; align-items: center; gap: 16px; background: #0D1929; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 14px 20px; width: 1200px; }
+        #toolbar > div { flex: 1; }
+        #toolbar .title { color: #fff; font-size: 12px; font-weight: 700; margin-bottom: 2px; }
+        #toolbar .sub { color: rgba(255,255,255,0.35); font-size: 11px; }
+        #dl-btn { background: linear-gradient(135deg, #0891B2, #06B6D4); color: #fff; border: none; border-radius: 5px; padding: 10px 22px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 14px rgba(6,182,212,0.3); }
+        #card { width: 1200px; height: 627px; background: #060D18; position: relative; overflow: hidden; display: grid; grid-template-columns: 300px 1fr 1fr; }
+        .bg-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(6,182,212,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.04) 1px, transparent 1px); background-size: 50px 50px; pointer-events: none; }
+        .bg-glow { position: absolute; top: -120px; right: -80px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(6,182,212,0.1) 0%, transparent 70%); pointer-events: none; }
+        .bg-glow2 { position: absolute; bottom: -80px; left: 260px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 70%); pointer-events: none; }
+        .left { background: linear-gradient(160deg, #091A28 0%, #060D18 100%); padding: 32px 26px; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 1; border-right: 1px solid rgba(6,182,212,0.12); }
+        .tag { font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: #06B6D4; margin-bottom: 6px; }
+        .accent { width: 28px; height: 3px; background: linear-gradient(90deg,#06B6D4,#67E8F9); border-radius: 2px; margin-bottom: 12px; }
+        .headline { font-size: 24px; font-weight: 900; color: #fff; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 10px; }
+        .headline em { color: #06B6D4; font-style: normal; }
+        .sub-text { font-size: 12px; color: rgba(255,255,255,0.38); line-height: 1.6; margin-bottom: 14px; }
+        .stat-callout { background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.22); border-radius: 8px; padding: 12px 14px; margin-bottom: 14px; }
+        .stat-callout-num { font-size: 36px; font-weight: 900; color: #06B6D4; line-height: 1; letter-spacing: -2px; }
+        .stat-callout-unit { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 600; margin-top: 1px; }
+        .stat-callout-desc { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 4px; line-height: 1.4; }
+        .bi-badge { display: flex; align-items: center; gap: 8px; background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.22); border-radius: 6px; padding: 8px 12px; }
+        .bi-text { font-size: 17px; font-weight: 900; color: #fff; }
+        .bi-sub { font-size: 10px; color: rgba(255,255,255,0.38); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-top: 1px; }
+        .logo-wrap img { height: 56px; opacity: 0.85; }
+        .middle { padding: 22px 18px; display: flex; flex-direction: column; gap: 7px; position: relative; z-index: 1; border-right: 1px solid rgba(255,255,255,0.05); }
+        .panel-title { font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 4px; }
+        .divider { height: 1px; background: rgba(255,255,255,0.05); }
+        .row-list { display: flex; flex-direction: column; gap: 5px; }
+        .row-item { display: flex; gap: 12px; align-items: flex-start; padding: 7px 10px; border-radius: 6px; }
+        .row-item.prob { background: rgba(6,182,212,0.06); border-left: 3px solid rgba(6,182,212,0.4); }
+        .row-item.impact { background: rgba(232,73,73,0.06); border-left: 3px solid rgba(232,73,73,0.4); }
+        .row-num { font-size: 10px; font-weight: 900; letter-spacing: 1px; min-width: 18px; margin-top: 2px; }
+        .row-num.cyan { color: #06B6D4; }
+        .row-num.red { color: #E84949; }
+        .row-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .row-desc { font-size: 11px; color: rgba(255,255,255,0.38); line-height: 1.35; }
+        .right { padding: 22px 22px; display: flex; flex-direction: column; gap: 7px; position: relative; z-index: 1; }
+        .timeline { display: flex; flex-direction: column; position: relative; }
+        .timeline::before { content: ''; position: absolute; left: 13px; top: 14px; bottom: 28px; width: 1px; background: linear-gradient(to bottom, rgba(6,182,212,0.5), rgba(6,182,212,0.05)); }
+        .tl-item { display: flex; gap: 14px; align-items: flex-start; padding-bottom: 10px; position: relative; }
+        .tl-dot { width: 27px; height: 27px; border-radius: 50%; background: linear-gradient(135deg,#0891B2,#06B6D4); border: 2px solid #06B6D4; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: #fff; flex-shrink: 0; z-index: 1; }
+        .tl-body { padding-top: 2px; }
+        .tl-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+        .tl-desc { font-size: 11px; color: rgba(255,255,255,0.38); line-height: 1.35; }
+        .result-stats { display: flex; gap: 0; }
+        .result-stat { flex: 1; text-align: center; padding: 8px 4px; }
+        .result-stat + .result-stat { border-left: 1px solid rgba(255,255,255,0.07); }
+        .rs-num { font-size: 22px; font-weight: 900; color: #06B6D4; line-height: 1; letter-spacing: -1px; }
+        .rs-label { font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 4px; line-height: 1.3; }
+        .cta-strip { background: linear-gradient(135deg, rgba(8,145,178,0.25), rgba(6,182,212,0.15)); border: 1px solid rgba(6,182,212,0.22); border-radius: 8px; padding: 9px 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .cta-text { font-size: 12px; font-weight: 700; color: #fff; line-height: 1.4; }
+        .cta-text span { color: rgba(255,255,255,0.4); font-weight: 400; font-size: 11px; display: block; margin-top: 1px; }
+        .cta-tag { background: #06B6D4; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 6px 12px; border-radius: 4px; white-space: nowrap; }
+    </style>
+</head>
+<body>
+<div id="toolbar">
+    <div><div class="title">Infográfico LinkedIn — Semana 5 BI — BI para o Comercial</div><div class="sub" id="dl-status">1200×627px — LinkedIn</div></div>
+    <button id="dl-btn" onclick="downloadInfographic()">⬇ Baixar PNG</button>
+</div>
+<div id="card">
+    <div class="bg-grid"></div><div class="bg-glow"></div><div class="bg-glow2"></div>
+    <div class="left">
+        <div class="logo-wrap"><img src="https://www.p1p.com.br/wp-content/uploads/2017/09/priority-partners-logo-branco.svg" alt="P1P"></div>
+        <div>
+            <div class="tag">Business Intelligence</div>
+            <div class="accent"></div>
+            <div class="headline">Qual vendedor está<br>crescendo margem —<br>ou só crescendo<br><em>volume?</em></div>
+            <div class="sub-text">Sem BI comercial, o gestor incentiva o comportamento errado sem saber.</div>
+            <div class="stat-callout">
+                <div class="stat-callout-num">Meta ≠</div>
+                <div class="stat-callout-unit">Resultado</div>
+                <div class="stat-callout-desc">Bater 120% da meta com desconto excessivo pode ser pior do que bater 80% com a margem preservada</div>
+            </div>
+        </div>
+        <div class="bi-badge"><div><div class="bi-text">P1P · Power BI</div><div class="bi-sub">BI Estratégico para médias empresas</div></div></div>
+    </div>
+    <div class="middle">
+        <div class="panel-title">O Problema</div>
+        <div class="row-list">
+            <div class="row-item prob"><div class="row-num cyan">01</div><div><div class="row-title">Meta só de receita</div><div class="row-desc">Ninguém mede margem por vendedor — só volume fechado</div></div></div>
+            <div class="row-item prob"><div class="row-num cyan">02</div><div><div class="row-title">Pipeline gerido na memória</div><div class="row-desc">Funil de vendas em planilha desatualizada — sem probabilidade real</div></div></div>
+            <div class="row-item prob"><div class="row-num cyan">03</div><div><div class="row-title">CAC invisível</div><div class="row-desc">Custo de aquisição por canal nunca foi calculado de verdade</div></div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="panel-title">O Impacto</div>
+        <div class="row-list">
+            <div class="row-item impact"><div class="row-num red">01</div><div><div class="row-title">Desconto sem piso</div><div class="row-desc">Vendedores negociam abaixo da margem mínima — ninguém sabe</div></div></div>
+            <div class="row-item impact"><div class="row-num red">02</div><div><div class="row-title">Mix de produto errado</div><div class="row-desc">Esforço nos itens que mais vendem, não nos que mais lucram</div></div></div>
+            <div class="row-item impact"><div class="row-num red">03</div><div><div class="row-title">Comissão sobre resultado errado</div><div class="row-desc">Time premiado por volume enquanto a margem encolhe</div></div></div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="panel-title">Como Resolvemos — P1P + Power BI</div>
+        <div class="timeline">
+            <div class="tl-item"><div class="tl-dot">1</div><div class="tl-body"><div class="tl-title">Margem por vendedor</div><div class="tl-desc">Cruzamos receita, desconto e custo por vendedor, produto e cliente</div></div></div>
+            <div class="tl-item"><div class="tl-dot">2</div><div class="tl-body"><div class="tl-title">Pipeline com qualidade</div><div class="tl-desc">Funil com probabilidade real por fase e por responsável</div></div></div>
+            <div class="tl-item" style="padding-bottom:0;"><div class="tl-dot">3</div><div class="tl-body"><div class="tl-title">CAC e LTV por canal</div><div class="tl-desc">Qual canal traz o cliente mais lucrativo ao menor custo</div></div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="panel-title">Resultados</div>
+        <div class="result-stats">
+            <div class="result-stat"><div class="rs-num">Metas</div><div class="rs-label">baseadas em<br>margem</div></div>
+            <div class="result-stat"><div class="rs-num">Desconto</div><div class="rs-label">com piso<br>visível</div></div>
+            <div class="result-stat"><div class="rs-num">Mix</div><div class="rs-label">otimizado<br>pelo time</div></div>
+        </div>
+        <div class="cta-strip">
+            <div class="cta-text">Você sabe qual vendedor está crescendo margem — ou só volume?<span>Converse com um especialista P1P — sem compromisso</span></div>
+            <div class="cta-tag">→ p1p.com.br</div>
+        </div>
+    </div>
+</div>
+<script>
+async function downloadInfographic() {
+    const btn=document.getElementById('dl-btn'),status=document.getElementById('dl-status');
+    btn.disabled=true;status.textContent='Gerando PNG...';
+    const card=document.getElementById('card');const imgs=card.querySelectorAll('img');
+    imgs.forEach(img=>img.style.visibility='hidden');
+    const canvas=await html2canvas(card,{scale:1200/card.offsetWidth,allowTaint:true,useCORS:false,backgroundColor:'#060D18',logging:false});
+    imgs.forEach(img=>img.style.visibility='');
+    const link=document.createElement('a');link.download='p1p-infografico-semana5-bi.png';
+    link.href=canvas.toDataURL('image/png');link.click();
+    status.textContent='✓ PNG baixado';btn.disabled=false;
+}
+</script>
+</body>
+</html>
